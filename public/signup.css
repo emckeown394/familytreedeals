@@ -1,0 +1,92 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Kumbh Sans', sans-serif;
+    background-color: #131313;
+    
+}
+
+.container {
+    padding: 16px;
+    background-color: #131313;
+  }
+
+h1 {
+    background-color: #131313;
+    color: #f1f1f1;
+    padding: 20px;
+}
+
+p {
+    background-color: #131313;
+    color: #f1f1f1;
+}
+
+a {
+    background-color: #131313;
+    color: #f1f1f1;
+}
+
+.form-label {
+    background-color: #131313;
+    color: #f1f1f1;
+    padding: 10px;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border-radius: 8px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    color: #f1f1f1;
+  background-color: #131313;
+  outline: none;
+}
+
+
+/* Set a style for all buttons */
+button {
+  background-color: #f77062;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+  transition-duration: 0.4s;
+}
+
+button:hover {
+  opacity:1;
+}
+
+.remember {
+    background-color: #131313;
+    color: #f1f1f1;
+
+}
+
+.login p{
+    background-color: #131313;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 10px;
+}
+
+
+/* responsivness for button */
+@media screen and (max-width: 300px) {
+  .btn btn-primary {
+     width: 100%;
+  }
+
+}
+  
