@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Vinyls</title>
+    <!-- local css file in public directory -->
+    <link rel="stylesheet" href="/public/styles.css"> 
+</head>
+<body>
+    <!-- navbar -->
+    <%- include ('navbar') %>
+    <div class="all-v-container">
+
+    <% rowdata.forEach((familytreedeals)=> { %>
+        <span class="all-f-img">
+            <a href="/row?id=<%=familytreedeals.id%>" class="family-img"><img src="<%- familytreedeals.image %>" alt="Image"></a>
+        </span>
+    <%}) %>
+    </div>
+
+    <!-- footer -->
+    <%- include ('footer') %>
+</body>
+</html>

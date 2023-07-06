@@ -25,18 +25,6 @@
    color:var(--white);
 }
 
-::-webkit-scrollbar{
-   height: .5rem;
-   width: 1rem;
-}
-
-::-webkit-scrollbar-track{
-   background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb{
-   background-color: var(--main-color);
-}
 
 html{
    font-size: 62.5%;
@@ -99,52 +87,7 @@ section{
    gap:1rem;
 }
 
-.message{
-   position: sticky;
-   top:0;
-   max-width: 1200px;
-   margin:0 auto;
-   background-color: var(--light-bg);
-   padding:2rem;
-   display: flex;
-   align-items: center;
-   justify-content: space-between;
-   gap:1.5rem;
-   z-index: 1100;
-}
 
-.message span{
-   font-size: 2rem;
-   color:var(--black);
-}
-
-.message i{
-   cursor: pointer;
-   color:var(--red);
-   font-size: 2.5rem;
-}
-
-.message i:hover{
-   color:var(--black);
-}
-
-.empty{
-   padding:1.5rem;
-   background-color: var(--white);
-   border: var(--border);
-   box-shadow: var(--box-shadow);
-   text-align: center;
-   color:var(--red);
-   border-radius: .5rem;
-   font-size: 2rem;
-   text-transform: capitalize;
-}
-
-.disabled{
-   pointer-events: none;
-   user-select: none;
-   opacity: .5;
-}
 
 @keyframes fadeIn{
    0%{
@@ -297,9 +240,6 @@ section{
    background-color: var(--black);
 }
 
-.category .slide:hover img{
-   filter:invert();
-}
 
 .category .slide:hover h3{
    color:var(--white);

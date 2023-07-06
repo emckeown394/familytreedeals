@@ -3,6 +3,7 @@ let app = express();
 const connection = require("./connection.js");
 const mysql  = require('mysql');
 const session = require('express-session');
+const dotenv = require('dotenv');
 //for hashing passwords
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
@@ -32,10 +33,6 @@ app.get("/", (req,res) => {
     res.render('index');
 });
 
-app.get("/collections", (req,res) => {
-    res.render('collections');
-});
-
 app.get("/signup", async (req,res) => {
     res.render('signup');
 });
@@ -48,8 +45,8 @@ app.get("/contact", (req,res) => {
     res.render('contact');
 });
 
-app.get("/search", (req,res) => {
-    res.render('search');
+app.get("/vouchers", (req,res) => {
+    res.render('vouchers');
 });
 
 app.get("/privacy", (req,res) => {
@@ -64,57 +61,17 @@ app.get("/logged_index", (req,res) => {
     res.render('logged_index');
 });
 
-app.get("/rap_collection", (req,res) => {
-    let showid = req.query.id;
-    let readsql = "SELECT * FROM `vinyl_data_1` WHERE `subgenre` = ' Hip hop';";
-    connection.query(readsql,[showid],(err, rows)=>{
-        if(err) throw err;
-        let vinyls = {
-            album: rows[0]['album'],
-            img_path: rows[0]['img_path'],
-            year: rows[0]['year'],
-            record_company: rows[0]['record_company'],
-            tracklist: rows[0]['tracklist']
-        };
-        res.render('rap_collection',{vinyls})
-    });
-});
 
-// All vinyls
-app.get("/allvinyls",(req,res) => {
-    let readsql = "SELECT * FROM vinyl_data_1";
+// All Deals
+app.get("/alldeals",(req,res) => {
+    let readsql = "SELECT * FROM deals";
     connection.query(readsql,(err, rows)=>{
         if(err) throw err;
         let rowdata = rows;
-        res.render('all_vinyls',{title: 'All Vinyls', rowdata});
+        res.render('alldeals',{title: 'All Deals', rowdata});
     });
 });
 
-// All vinyls logged
-app.get("/all_vinyls_logged",(req,res) => {
-    let readsql = "SELECT * FROM vinyl_data_1";
-    connection.query(readsql,(err, rows)=>{
-        if(err) throw err;
-        let rowdata = rows;
-        res.render('all_vinyls',{title: 'All Vinyls', rowdata});
-    });
-});
-
-app.get("/row",(req,res) => {
-    let showid = req.query.id;
-    let readsql = "SELECT * FROM vinyl_data_1 WHERE id = ?";
-    connection.query(readsql,[showid],(err, rows)=>{
-        if(err) throw err;
-        let vinyls = {
-            album: rows[0]['album'],
-            img_path: rows[0]['img_path'],
-            year: rows[0]['year'],
-            record_company: rows[0]['record_company'],
-            tracklist: rows[0]['tracklist']
-        };
-        res.render('vinyls',{vinyls})
-    });
-});
 
 // signup/login
 app.use(cookieParser());
