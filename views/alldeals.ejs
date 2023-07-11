@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Vinyls</title>
+    <title>All Deals</title>
     <!-- local css file in public directory -->
     <link rel="stylesheet" href="/public/styles.css"> 
 </head>
@@ -13,10 +13,10 @@
     <%- include ('navbar') %>
     <div class="all-v-container">
 
-    <% rowdata.forEach((familytreedeals)=> { %>
-        <span class="all-f-img">
-            <a href="/row?id=<%=familytreedeals.id%>" class="family-img"><img src="<%- familytreedeals.image %>" alt="Image"></a>
-        </span>
+    <% rowdata.forEach((deals)=> { %>
+        <div class="all_deals_img">
+            <a href="/row?id=<%=deals.id%>" class="deals-img"><img src="<%- deals.image %>" alt="Image"></a>
+        </div>
     <%}) %>
     </div>
 

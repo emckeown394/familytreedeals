@@ -1,0 +1,23 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Kumbh Sans', sans-serif;
+    background-color: #131313;
+}
+
+h1 {
+    color: #ffffff;
+    padding: 25px;
+}
+
+p {
+    color: #ffffff;
+    padding: 25px;
+}
+
+.deals__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 1rem;
+    width: 10%;
+  }

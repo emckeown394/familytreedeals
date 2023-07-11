@@ -14,28 +14,30 @@
 <body>
 	<!-- navbar -->
 	<nav class="navbar">
-		<div class="navbar__container">
-			<a href="/" id="navbar__logo"></i> 𓆱𓍊𓋼𓍊𓋼𓍊 FAMILY DEAL TREE</a>
-			<div class="navbar__toggle" id="mobile-menu">
-				<span class="bar"></span>
-				<span class="bar"></span>
-				<span class="bar"></span>
-			</div>
-			<ul class="navbar__menu">
-				<li class="navbar__item">
-					<a href="/" class="navbar__links">HOME</a>
-				</li>
-				<li class="navbar__item">
-					<a href="alldeals" class="navbar__links">DEALS</a>
-				</li>
-				<li class="navbar__item">
-					<a href="vouchers" class="navbar__links">VOUCHERS</a>
-				</li>
-				<li class="navbar__btn">
-					<a href="signup" class="button">SIGN UP/ LOGIN</a>
-				</li>
-			</ul>
-		</div>
+		<div class="topnav" id="myTopnav">
+			<a href="/" id="navbar__logo" class="active"></i>𓆱𓍊𓋼𓍊𓋼𓍊 FAMILYDEALTREE</a>
+			<span class="bar"></span>
+			<span class="bar"></span>
+			<span class="bar"></span>
+			<a href="/">HOME</a>
+			<a href="alldeals">DEALS</a>
+			<a href="vouchers">VOUCHERS</a>
+			<a href="signup" class="button">SIGN UP/ LOGIN</a>
+			<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+			  <i class="fa fa-bars"></i>
+			</a>
+		  </div>
 	</nav>
+
+	<script>
+		function myFunction() {
+		  var x = document.getElementById("myTopnav");
+		  if (x.className === "topnav") {
+			x.className += " responsive";
+		  } else {
+			x.className = "topnav";
+		  }
+		}
+		</script>
 
     <script src="'app.js"></script>

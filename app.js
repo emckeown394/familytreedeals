@@ -61,10 +61,33 @@ app.get("/logged_index", (req,res) => {
     res.render('logged_index');
 });
 
+app.get("/deals", (req,res) => {
+    res.render('deals');
+});
+
+app.get("/lidl_vouchers", (req,res) => {
+    res.render('lidl_vouchers');
+});
+
+app.get("/pizza_hut_vouchers", (req,res) => {
+    res.render('pizza_hut_vouchers');
+});
+
+app.get("/amazon_vouchers", (req,res) => {
+    res.render('amazon_vouchers');
+});
+
+app.get("/cineworld_vouchers", (req,res) => {
+    res.render('cineworld_vouchers');
+});
+
+app.get("/tesco_vouchers", (req,res) => {
+    res.render('tesco_vouchers');
+});
 
 // All Deals
 app.get("/alldeals",(req,res) => {
-    let readsql = "SELECT * FROM deals";
+    let readsql = "SELECT id, text, city, info, saving, url, voucher, company, user_id, image, rrp FROM deals";
     connection.query(readsql,(err, rows)=>{
         if(err) throw err;
         let rowdata = rows;

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>MyTV</title>
+    <!-- local css file in public directory -->
+    <link rel="stylesheet" href="/public/deals.css"> 
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <header>
+        <h1> <%= deals.info %> </h1>
+      </header>
+      <main>
+         <img src="<%= deals.image %>"> 
+        <p>
+          City - <%= deals.city %> 
+        </p>
+        <p>
+          Info - <%= deals.info %>
+        </p>
+        <p>
+          Savings - <%= deals.saving %> 
+        </p>
+        <p>
+            Link - <%= deals.url %> 
+        </p>
+        <p>
+            Voucher Code - <%= deals.voucher %> 
+        </p>
+        <p>
+            Company - <%= deals.company %> 
+        </p>
+        <p>
+            User - <%= deals.user.id %> 
+        </p>
+        <p>
+            RRP - <%= deals.rrp %> 
+        </p>
+          
+        </main>
+        <li class="deals__btn">
+					<a href="alldeals" class="button">BACK</a>
+				</li>
+</body>
+</html>

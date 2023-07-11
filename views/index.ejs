@@ -63,8 +63,6 @@
 
    </div>
 
-      <!-- <div class="swiper-pagination"></div> -->
-
    </div>
 
 </section>
@@ -118,26 +116,45 @@
 
 </section>
 
-<section class="home-products">
+<section class="category">
 
-   <h1 class="heading">latest vouchers</h1>
+   <h1 class="heading">Latest Vouchers</h1>
 
-   <div class="swiper products-slider">
+   <div class="swiper category-slider">
 
    <div class="swiper-wrapper">
 
-   </div>
+   <a href="pizza_hut_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v1.jpg" alt="">
+      <h3>Pizza Hut</h3>
+   </a>
 
-   <div class="swiper-pagination"></div>
+   <a href="lidl_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v2.png" alt="">
+      <h3>Lidl</h3>
+   </a>
 
-   </div>
+   <a href="amazon_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v3.jpg" alt="">
+      <h3>Amazon</h3>
+   </a>
 
+   <a href="cineworld_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v4.jpg" alt="">
+      <h3>Cineworld</h3>
+   </a>
+
+   <a href="tesco_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v5.jpg" alt="">
+      <h3>Tesco</h3>
+   </a>
+
+</div>
+
+<div class="swiper-pagination"></div>
+
+</div>
 </section>
-
-<!-- footer -->
-<%- include ('footer') %>
-
-
 
 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
@@ -198,6 +215,9 @@ var swiper = new Swiper(".products-slider", {
 });
 
 </script>
+
+<!-- footer -->
+<%- include ('footer') %>
 
 </body>
 </html>
