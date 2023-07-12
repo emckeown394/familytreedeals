@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="/public/styles.css">
+   <link rel="stylesheet" href="/public/daysout.css">
+
+</head>
+<body>
+    <!-- navbar -->
+	<%- include ('navbar') %>
+   
+<div class="container">
+
+   <h1 class="heading">Family Days Out</h1>
+
+   <div class="image-container">
+
+      <div class="image">
+         <img src="/images/thorpe park.jpg" alt="">
+         <h3>Thorpe Park</h3>
+      </div>
+
+      <div class="image">
+        <img src="/images/legoland.jpg" alt="">
+        <h3>Legoland</h3>
+     </div>
+
+     <div class="image">
+        <img src="/images/dublin zoo.jpg" alt="">
+        <h3>Dublin Zoo</h3>
+     </div>
+
+     <div class="image">
+        <img src="/images/belfast zoo.png" alt="">
+        <h3>Belfast Zoo</h3>
+     </div>
+
+     <div class="image">
+        <img src="/images/lets go.jpg" alt="">
+        <h3>Lets Go Hydro</h3>
+     </div>
+
+     <div class="image">
+        <img src="/images/funtasia.jpg" alt="">
+        <h3>Funtasia</h3>
+     </div>
+
+     <div class="image">
+        <img src="/images/got.jpg" alt="">
+        <h3>GOT Studios</h3>
+     </div>
+
+      
+
+   </div>
+
+</div>
+
+<!-- js  -->
+<script>
+
+let searchBox = document.querySelector('#search-box');
+let images = document.querySelectorAll('.container .image-container .image');
+
+searchBox.oninput = () =>{
+   images.forEach(hide => hide.style.display = 'none');
+   let value = searchBox.value;
+   images.forEach(filter =>{
+      let title = filter.getAttribute('data-title');
+      if(value == title){
+         filter.style.display = 'block';
+      }
+      if(searchBox.value == ''){
+         filter.style.display = 'block';
+      }
+   });
+};
+
+</script>
+
+<!-- footer -->
+<%- include ('footer') %>
+</body>
+</html>

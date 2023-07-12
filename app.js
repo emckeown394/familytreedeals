@@ -27,6 +27,12 @@ db.connect((err)=> {
 //middleware
 app.set('view engine', 'ejs');
 app.use(express.static(__dirname,+ "/public"));
+app.use(session({
+    secret: 'web-dev-2023', 
+    resave: false,
+    saveUninitialized: true
+  }));
+  
 
 
 app.get("/", (req,res) => {
@@ -53,9 +59,16 @@ app.get("/privacy", (req,res) => {
     res.render('privacy');
 });
 
-app.get("/logged", (req,res) => {
-    res.render('logged_index');
-});
+app.get('/logged', function(req, res) {
+    if (req.session.loggedin) {
+      // User is logged in, render logged_index page
+      res.render('logged_index');
+    } else {
+      // User is not logged in, redirect to the login page
+      res.redirect('/login');
+    }
+  });
+  
 
 app.get("/logged_index", (req,res) => {
     res.render('logged_index');
@@ -85,6 +98,10 @@ app.get("/tesco_vouchers", (req,res) => {
     res.render('tesco_vouchers');
 });
 
+app.get("/daysout", (req,res) => {
+    res.render('daysout');
+});
+
 // All Deals
 app.get("/alldeals",(req,res) => {
     let readsql = "SELECT id, text, city, info, saving, url, voucher, company, user_id, image, rrp FROM deals";
@@ -95,69 +112,96 @@ app.get("/alldeals",(req,res) => {
     });
 });
 
+app.get("/row",(req,res) => {
+    let showid = req.query.id;
+    let readsql = "SELECT * FROM deals WHERE id = ?";
+    connection.query(readsql,[showid],(err, rows)=>{
+        if(err) throw err;
+        let deals = {
+            text: rows[0]['text'],
+            image: rows[0]['image'],
+            city: rows[0]['city'],
+            info: rows[0]['info'],
+            saving: rows[0]['saving'],
+            url: rows[0]['url'],
+            voucher: rows[0]['voucher'],
+            company: rows[0]['company'],
+            category: rows[0]['category'],
+            rrp: rows[0]['rrp']
+        };
+        res.render('deals',{deals})
+    });
+});
+
 
 // signup/login
 app.use(cookieParser());
 
 app.use(session({
-    secret : 'secret',
+    secret : 'web-dev-2023',
     resave : true,
     saveUninitialized : true
 }));
 app.use(express.urlencoded({extended: 'true'}));
 app.use(express.json());
 
-app.post('/signup', (req,res) => {
-    const {name, email, password, password_confirm } = req.body;
-
-    let checkuser = 'SELECT * FROM users WHERE name = ? ';
-
-    db.query('SELECT email FROM users WHERE email = ?', [email], async (error, res) => {
-        if(error){
-            console.log(error)
+app.post('/signup', (req, res) => {
+    const { name, email, username, password } = req.body;
+  
+    // Hash password
+    const hashedPassword = bcrypt.hashSync(password, 10);
+  
+    // Insert user into the database
+    db.query(
+      `INSERT INTO members (name, email, username, password) VALUES (?, ?, ?, ?)`,
+      [name, email, username, hashedPassword],
+      (err) => {
+        if (err) {
+          console.error(err);
+          res.send('An error occurred during signup.');
+        } else {
+          res.redirect('/login');
         }
-        
-        //inserting into db
-        let hashedPassword = await bcrypt.hash(password, 8)
+      }
+    );
+  });
 
-        db.query('INSERT INTO users SET?', {name: name, email: email, password: hashedPassword}, (err, res) => {
-            if(error) {
-                console.log(error)
-            } else {
-                return res.redirect('signup')
-            }
-        });
-    });
-        
-       
-});
-
-app.post('/login', function(req, res){
-    let email = req.body.email;
+  app.post('/login', function(req, res) {
+    let username = req.body.username;
     let password = req.body.password;
-    if (email && password){
-        connection.query('SELECT * FROM users WHERE email = ? AND password = ?',[email, password], function(error, rows, fields){
-            if (error) throw error;
-            let numrows = rows.length;
-            if (numrows > 0){
+  
+    if (username && password) {
+      connection.query(
+        'SELECT * FROM members WHERE username = ?',
+        [username],
+        function(error, rows, fields) {
+          if (error) throw error;
+          let numrows = rows.length;
+  
+          if (numrows > 0) {
+            const storedPassword = rows[0].password;
+            bcrypt.compare(password, storedPassword, function(err, result) {
+              if (err) throw err;
+  
+              if (result) {
                 req.session.loggedin = true;
-                req.session.email = email;
-                res.redirect('logged');
-            }else{
-                res.send('<code>Incorrect Email and/or Password</code> <a href="login" class="button">BACK</a>');
-            }
-            res.end();
-        });
-    }else{
-        res.send('Enter Email and Password');
-        res.end();
+                req.session.username = username;
+                res.redirect('/logged');
+              } else {
+                res.send('<code>Incorrect Username and/or Password</code> <a href="/login" class="button">BACK</a>');
+              }
+            });
+          } else {
+            res.send('<code>Incorrect Username and/or Password</code> <a href="/login" class="button">BACK</a>');
+          }
+        }
+      );
+    } else {
+      res.send('Enter Username and Password');
     }
-});
-
-
-
-
-
+  });
+  
+  
 //server
 app.listen(process.env.PORT || 3000);
 console.log(" Server is listening on //localhost:3000/ ");
