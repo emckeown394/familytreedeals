@@ -32,7 +32,7 @@ a {
     padding: 10px;
 }
 
-/* Full-width input fields */
+/* Input fields */
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
@@ -51,21 +51,56 @@ input[type=text]:focus, input[type=password]:focus {
 
 
 /* Set a style for all buttons */
-button {
-  background-color: #3bbc2a;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
+.btn {
+  display: block;
   width: 100%;
-  opacity: 0.9;
-  transition-duration: 0.4s;
+  margin-top: 1rem;
+  border-radius: .5rem;
+  padding:1rem 3rem;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+  text-align: center;
 }
 
-button:hover {
-  opacity:1;
+.btn{
+  background-color: #333;
+}
+
+.btn:hover {
+  background-color: #3bbc2a;
+}
+
+.flex-btn{
+  display: flex;
+  gap:1rem;
+}
+
+.login__btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: .5rem;
+  padding:1rem 3rem;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login__btn{
+  background-color: #333;
+}
+
+.login__btn:hover {
+  background-color: #3bbc2a;
+}
+
+.flex-btn{
+  display: flex;
+  gap:1rem;
 }
 
 .remember {
