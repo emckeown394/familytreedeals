@@ -5,7 +5,8 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Stack of Wax</title>
-	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="/public/styles.css">
+	<!-- <link rel="stylesheet" href="/public/logged_navbar.css"> -->
 	<!-- Google fonts -->
 	<link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
 	<!-- Social media icons -->
@@ -21,8 +22,18 @@
 				<span class="bar"></span>
 				<a href="/">HOME</a>
 				<a href="alldeals">DEALS</a>
-				<a href="vouchers">VOUCHERS</a>
-				<a href="/" class="button">LOGOUT</a>
+				<a href="product">VOUCHERS</a>
+				<div class="dropdown">
+					<button class="dropbtn">COMMUNITY
+					  <i class="fa fa-caret-down"></i>
+					</button>
+					<div class="dropdown-content">
+					  <a href="#">Add Deals</a>
+					  <a href="#">Add Vouchers</a>
+					  <a href="#">Saved</a>
+					</div>
+				  </div>
+				<a href="/" class="button" id="logoutButton">LOGOUT</a>
 				<a href="javascript:void(0);" class="icon" onclick="myFunction()">
 				<i class="fa fa-bars"></i>
 				</a>

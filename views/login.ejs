@@ -50,6 +50,40 @@
                 x.type = "password";
             }
         }
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+
+      // Perform AJAX request to the server to handle the form submission
+      fetch('/login', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin' // Include cookies in the request
+      })
+      .then(response => {
+        if (response.redirected) {
+          // If the server redirected, redirect the client to the new location
+          window.location.href = response.url;
+        } else {
+          // Handle unsuccessful login, show an error message, etc.
+        }
+      });
+    });
+
+    // Logout button event listener
+    document.getElementById('logoutButton').addEventListener('click', function (event) {
+      event.preventDefault();
+      // Perform AJAX request to the server to handle logout
+      fetch('/logout', {
+        method: 'GET',
+        credentials: 'same-origin' // Include cookies in the request
+      })
+      .then(response => {
+        // Redirect the client to the login page after logout
+        window.location.href = '/login';
+      });
+    });
     </script>
 
     

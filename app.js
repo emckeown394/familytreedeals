@@ -36,7 +36,8 @@ app.use(session({
 
 
 app.get("/", (req,res) => {
-    res.render('index');
+  const loggedin = req.session.loggedin || false;
+    res.render('index', {loggedin});
 });
 
 app.get("/signup", async (req,res) => {
@@ -71,7 +72,12 @@ app.get('/logged', function(req, res) {
   
 
 app.get("/logged_index", (req,res) => {
+  let sessionobj = req.session;
+  if(sessionobj.authen){
     res.render('logged_index');
+  } else {
+    res.render('index');
+  }
 });
 
 app.get("/deals", (req,res) => {
@@ -252,6 +258,12 @@ app.post('/signup', (req, res) => {
       res.send('Enter Username and Password');
     }
   });
+
+  app.get('/logout', (req, res) => {
+    req.session.destroy();
+    res.clearCookie('connect.sid');
+    res.redirect('/login');
+  })
   
   
 //server
