@@ -102,6 +102,48 @@ app.get("/daysout", (req,res) => {
     res.render('daysout');
 });
 
+app.get("/product", (req, res) => {
+  let readsql = "SELECT id, text, city, info, saving, url, voucher, company, user_id, image, rrp FROM deals";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let rowdata = rows;
+      res.render('product', { title: 'Product', rowdata });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Internal Server Error');
+    }
+  });
+});
+
+
+
+// app.get("/product", function (req,res) {
+//   let city = req.query.city || "";
+//   let saving = req.query.saving || "";
+//   let category = req.query.category || "";
+
+//   let sql = `SELECT deals.text, deals.city, deals.info, deals.saving, deals.url, 
+//               deals.voucher, deals.company, deals.category, deals.user_id, deals.image, deals.rrp
+//               FROM deals
+//             WHERE deals.city LIKE ?
+//             AND deals.saving LIKE ?
+//             AND deals.category LIKE ?`;
+
+//   let values = [`%${city}%`, `%${saving}%`, `%${category}%`];
+
+//   connection.query(sql, values, function (err, rows) {
+//     if (err) throw err;
+//     res.render("product", {
+//       deals:
+//         rows,
+//       city: city,
+//       saving: saving,
+//       category: category,
+//     });
+//   });
+// });
+
 // All Deals
 app.get("/alldeals",(req,res) => {
     let readsql = "SELECT id, text, city, info, saving, url, voucher, company, user_id, image, rrp FROM deals";
@@ -131,6 +173,16 @@ app.get("/row",(req,res) => {
         };
         res.render('deals',{deals})
     });
+});
+
+app.get("/entertainment-deals", (req,res) => {
+  let showid = req.query.id;
+  let readsql = "SELECT * FROM `deals` WHERE `category` = 'Entertainment';";
+  connection.query(readsql,(err, rows)=>{
+    if(err) throw err;
+    let rowdata = rows;
+    res.render('entertainment-deals',{title: 'Entertainment Deals', rowdata});
+  });      
 });
 
 

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/public/product.css">
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <!-- navbar -->
+    <%- include ('navbar') %>
+    <h1>All Deals</h1>
+    <!-- filter menu -->
+    <div class="filter-menu">
+        <div class="filter-option">
+            <label for="city-filter">City:</label>
+            <select id="city-filter">
+                <option value="">All</option>
+                <option value="city1">London</option>
+                <option value="city2">Windsor</option>
+                <option value="city3">Dublin</option>
+                <option value="city4">Belfast</option>
+                <option value="city5">Drogheda</option>
+                <option value="city6">Banbridge</option>
+            </select>
+        </div>
+        <div class="filter-option">
+            <label for="saving-filter">Saving:</label>
+            <select id="saving-filter">
+                <option value="">All</option>
+                <option value="saving1">0</option>
+                <option value="saving2">15</option>
+                <option value="saving3">20</option>
+                <option value="saving3">25</option>
+            </select>
+        </div>
+        <div class="filter-option">
+            <label for="category-filter">Category:</label>
+            <select id="category-filter">
+                <option value="">All</option>
+                <option value="category1">Eating out</option>
+                <option value="category2">Entertainment</option>
+                <option value="category3">Groceries</option>
+            </select>
+        </div>
+        <button class="filter-button" onclick="applyFilter()">Filter</button>
+    </div>
+    <!-- deals -->
+    <% rowdata.forEach((deal) => { %>
+        <div class="deal-container" data-deal-id="<%= deal.id %>">
+          <div class="deal-image">
+            <img src="<%= deal.image %>" alt="Product Image">
+          </div>
+          <div class="deal-info">
+            <h2><%= deal.text %></h2>
+            <p><%= deal.info %></p>
+            <p>Price: £<%= deal.rrp %> <span class="saving">Save <%= deal.saving %>%</span></p>
+            <p>Voucher Code: <%= deal.voucher %></p>
+            <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
+          </div>
+        </div>
+      <% }) %>
+      
+    <!-- js for filter options -->
+    <script>
+    // Retrieve DOM elements
+// var cityFilter = document.getElementById("city-filter");
+// var savingFilter = document.getElementById("saving-filter");
+// var categoryFilter = document.getElementById("category-filter");
+
+// // Add event listener to the filter button
+// var filterButton = document.querySelector(".filter-button");
+// filterButton.addEventListener("click", applyFilter);
+
+// // Function to apply filters and display corresponding deals
+// function applyFilter() {
+//   // Retrieve selected filter options
+//   var selectedCity = cityFilter.value;
+//   var selectedSaving = savingFilter.value;
+//   var selectedCategory = categoryFilter.value;
+
+//   // Loop through the deals and show/hide based on filter selection
+//   var deals = document.querySelectorAll(".deal-container");
+//   deals.forEach(function (deal) {
+//     var dealId = deal.getAttribute("data-deal-id");
+//     var tags = rowdata[dealId].tags;
+
+//     // Apply filter logic
+//     var cityMatch = selectedCity === "" || tags.includes(selectedCity);
+//     var savingMatch = selectedSaving === "" || tags.includes(selectedSaving);
+//     var categoryMatch = selectedCategory === "" || tags.includes(selectedCategory);
+
+//     // Show or hide the deal based on filter selection
+//     if (cityMatch && savingMatch && categoryMatch) {
+//       deal.style.display = "block";
+//     } else {
+//       deal.style.display = "none";
+//     }
+//   });
+// }
+
+
+        function filterImages() {
+            var cityFilter = document.getElementById('city-filter').value;
+            var savingFilter = document.getElementById('saving-filter').value;
+            var categoryFilter = document.getElementById('category-filter').value;
+
+            var imageItems = document.getElementsByClassName('all-d-img');
+
+            for (var i = 0; i < imageItems.length; i++) {
+                var imageItem = imageItems[i];
+                var city = imageItem.getAttribute('data-city');
+                var saving = imageItem.getAttribute('data-saving');
+                var category = imageItem.getAttribute('data-category');
+
+                if (
+                    (cityFilter === '' || cityFilter === city) &&
+                    (savingFilter === '' || savingFilter === saving) &&
+                    (categoryFilter === '' || categoryFilter === category)
+                ) {
+                    imageItem.style.display = 'block';
+                } else {
+                    imageItem.style.display = 'none';
+                }
+            }
+        }
+
+        function applyFilter() {
+            filterImages();
+        }
+        Retrieve DOM elements
+    </script>
+      <!-- footer -->
+    <%- include ('footer') %>
+</body>
+</html>

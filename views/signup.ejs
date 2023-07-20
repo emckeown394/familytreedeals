@@ -15,31 +15,31 @@
     <h1>SIGNUP</h1>
 
     <div class="container mt-4">
-        <div class="card" style="width: 18rem;">               
+        <div class="card" style="width: 18rem;">
             <div class="card-body">
                 <form action="/signup" method="POST">
                     <div class="mb-3">
                         <label for="name-reg" class="form-label">Name</label>
-                        <input type="text" class="form-control" id="name-reg" name="name">                        
+                        <input type="text" class="form-control" id="name-reg" name="name" required>                        
                     </div>
                     <div class="mb-3">
                         <label for="email-reg" class="form-label">Email</label>
-                        <input type="text" class="form-control" id="email-reg" name="email">                        
+                        <input type="text" class="form-control" id="email-reg" name="email" required>                        
                     </div>
                     <div class="mb-3">
                         <label for="username-reg" class="form-label">Username</label>
-                        <input type="text" class="form-control" id="username-reg" name="username">                        
+                        <input type="text" class="form-control" id="username-reg" name="username" required>                        
                     </div>
                     <div class="mb-3">
                         <label for="password-reg" class="form-label">Password</label>
-                        <input type="password" class="form-control" id="password-reg" name="password">
+                        <input type="password" class="form-control" id="password-reg" name="password" required>
                     </div>
                     <div>
                         <p>By creating an account you agree to our <a href="/privacy" style="color:dodgerblue">Terms & Privacy</a>.</p>
                     </div>
                     
 
-                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="submit" class="btn btn-primary">SUBMIT</button>
                 </form>
 
                 <p>Already registered?</p>
@@ -51,6 +51,6 @@
     <script src="/app.js"></script>
 
     <!-- footer -->
-    <%- include ('footer') %>
+    <footer><%- include ('footer') %></footer>
 </body>
 </html>

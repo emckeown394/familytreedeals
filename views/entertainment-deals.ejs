@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment</title>
+    <!-- local css file in public directory -->
+    <link rel="stylesheet" href="/public/styles.css"> 
+    <link rel="stylesheet" href="/public/deals.css"> 
+</head>
+<body>
+    <!-- navbar -->
+    <%- include ('navbar') %>
+    <h1>Entertainment Deals</h1>
+
+    <div class="image-container">
+        <% rowdata.forEach((deals) => { %>
+            <div class="all-d-img" data-city="<%= deals.city %>" data-saving="<%= deals.saving %>" data-category="<%= deals.category %>">
+                <a href="/row?id=<%= deals.id %>" class="deal-img">
+                    <img src="<%- deals.image %>" alt="Image">
+                </a>
+            </div>
+        <% }) %>
+    </div>
+    
+
+    <!-- footer -->
+    <footer><%- include ('footer') %></footer>
+</body>
+</html>
