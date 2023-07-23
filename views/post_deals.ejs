@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Post Deals</title>
+    <link rel="stylesheet" href="/public/post.css">
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body class="post_body">
+    <!-- navbar -->
+    <%- include ('navbar_logged') %>
+    <h1 class="post_header">Let us know new deals you find online</h1>
+<div class="container mt-4">
+  <div class="card">
+    <div class="card-body">
+      <form action="/submit-deal" method="POST">
+        <div class="mb-3">
+          <label for="deal" class="form-label">Deal</label>
+          <input type="text" class="form-control" id="deal" name="deal" required>
+        </div>
+        <div class="mb-3">
+          <label for="city" class="form-label">City</label>
+          <input type="text" class="form-control" id="city" name="city" required>
+        </div>
+        <div class="mb-3">
+          <label for="info" class="form-label">Info</label>
+          <input type="text" class="form-control" id="info" name="info" required>
+        </div>
+        <div class="mb-3">
+          <label for="saving" class="form-label">Saving %</label>
+          <input type="text" class="form-control" id="saving" name="saving" required>
+        </div>
+        <div class="mb-3">
+          <label for="url" class="form-label">Link to Webpage</label>
+          <input type="text" class="form-control" id="url" name="url" required>
+        </div>
+        <div class="mb-3">
+          <label for="voucher" class="form-label">Voucher Code</label>
+          <input type="text" class="form-control" id="voucher" name="voucher" required>
+        </div>
+        <div class="mb-3">
+          <label for="company" class="form-label">Company</label>
+          <input type="text" class="form-control" id="company" name="company" required>
+        </div>
+        <div class="mb-3">
+          <label for="category" class="form-label">Category</label>
+          <select class="form-control" id="category" name="category" required>
+            <option value="daysout">Days Out</option>
+            <option value="entertainment">Entertainment</option>
+            <option value="groceries">Groceries</option>
+            <option value="eatingout">Eating Out</option>
+            <option value="indoor">Indoor Products</option>
+            <option value="outdoor">Outdoor Products</option>
+          </select>
+        </div>
+        <div class="mb-3">
+          <label for="image" class="form-label">Image URL</label>
+          <input type="text" class="form-control" id="image" name="image" required>
+        </div>
+        <div class="mb-3">
+          <label for="rrp" class="form-label">RRP (£)</label>
+          <input type="text" class="form-control" id="rrp" name="rrp" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<%- include ('footer') %>
+
+</body>
+</html>

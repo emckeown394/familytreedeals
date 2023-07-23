@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"> -->
+    <link rel="stylesheet" href="/public/styles.css">
+    <link rel="stylesheet" href="/public/signup.css">
+</head>
+<body>
+    <!-- navbar -->
+    <%- include ('navbar') %>
+    <h1>SIGNUP</h1>
+
+    <div class="container mt-4">
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+                <form action="/signup" method="POST">
+                    <div class="mb-3">
+                        <label for="name-reg" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="name-reg" name="name" required>                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="email-reg" class="form-label">Email</label>
+                        <input type="text" class="form-control" id="email-reg" name="email" required>                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="username-reg" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username-reg" name="username" required>                        
+                    </div>
+                    <div class="mb-3">
+                        <label for="password-reg" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password-reg" name="password" required>
+                    </div>
+                    <div>
+                        <p>By creating an account you agree to our <a href="/privacy" style="color:dodgerblue">Terms & Privacy</a>.</p>
+                    </div>
+                    
+
+                    <button type="submit" class="btn btn-primary">SUBMIT</button>
+                </form>
+
+                <p>Already registered?</p>
+                <div class="login__btn"> <a href="/login" class="button">LOGIN</a></div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/app.js"></script>
+
+    <!-- footer -->
+    <footer><%- include ('footer') %></footer>
+</body>
+</html>

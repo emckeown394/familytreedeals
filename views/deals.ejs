@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Deals</title>
+    <!-- local css file in public directory -->
+    <link rel="stylesheet" href="/public/styles.css"> 
+    <link rel="stylesheet" href="/public/deal.css"> 
+</head>
+<body>
+  <!-- navbar -->
+  <%- include ('navbar') %> 
+    <header>
+        <h1> <%= deals.text %> </h1>
+      </header>
+      <main>
+         <img src="<%= deals.image %>"> 
+        <p>
+          City - <%= deals.city %> 
+        </p>
+        <p>
+          Info - <%= deals.info %>
+        </p>
+        <p>
+          Savings - <%= deals.saving %> 
+        </p>
+        <p>
+            Voucher Code - <%= deals.voucher %> 
+        </p>
+        <p>
+            Company - <%= deals.company %> 
+        </p>
+        <p>
+            RRP - <%= deals.rrp %> 
+        </p>
+        <p>
+          <a href="<%= deals.url %>" target="_blank" class="link">Link</a>
+        </p>
+          
+        </main>
+        <li class="deals__btn">
+					<a href="alldeals" class="button" id="deal-btn">BACK</a>
+				</li>
+
+<!-- footer -->
+<%- include ('footer') %>
+</body>
+</html>

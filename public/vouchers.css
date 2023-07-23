@@ -1,0 +1,110 @@
+*{
+    font-family: 'Kumbh Sans', sans-serif;
+    margin:0; padding:0;
+    box-sizing: border-box;
+    outline: none; border:none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+ }
+ 
+ body{
+   background-color: #131313;
+ }
+ 
+ .container{
+   padding:25px 10%;
+   text-align: center;
+ }
+ 
+ .container .heading{
+   font-size: 30px;
+   padding-bottom: 25px;
+   color: #fff;
+ }
+ 
+ .container #search-box{
+   width: 600px;
+   border:3px solid #3bbc2a;
+   padding:12px 15px;
+   font-size: 20px;
+ }
+ 
+ .container .image-container{
+   display: flex;
+   justify-content: center;
+   flex-wrap: wrap;
+   gap:20px;
+   padding-top: 30px;
+ }
+ 
+ .container .image-container .image{
+   padding:15px;
+   background-color: #fff;
+   border:2px solid #000;
+   width: 350px;
+   border-radius: 5px;
+ }
+ 
+ 
+ .container .image-container .image img{
+   height: 250px;
+   width: 100%;
+   object-fit: cover;
+   margin-bottom: 10px;
+   border-radius: 5px;
+ }
+ 
+ .container .image-container .image h3{
+   font-size: 20px;
+ }
+
+ .voucher {
+  border: 5px dotted #bbb; /* Dotted border */
+  width: 80%;
+  border-radius: 15px; /* Rounded border */
+  margin: 0 auto; /* Center the coupon */
+  max-width: 600px;
+}
+
+.v_container {
+  padding: 2px 16px;
+  background-color: #f1f1f1;
+}
+
+.promo {
+  background: #ccc;
+  padding: 3px;
+}
+
+.code {
+  color: white;
+}
+
+.expire {
+  color: red;
+}
+
+a .shop_link:link {
+  color: blue;
+  text-decoration: underline;
+}
+ 
+ /* responsiveness */
+ 
+ @media (max-width:768px){
+   .container #search-box{
+     width: 100%;
+   }
+ }
+ 
+ @media (max-width:450px){
+ 
+   .container{
+     padding:25px 20px;
+   }
+ 
+   .container .image-container .image{
+     width: 100%;
+   }
+ }

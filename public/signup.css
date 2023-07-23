@@ -1,0 +1,128 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Kumbh Sans', sans-serif;
+    
+}
+
+body {
+  background-color: #131313;
+}
+
+.container {
+    padding: 16px;
+  }
+
+h1 {
+    background-color: #131313;
+    color: #f1f1f1;
+    padding: 20px;
+}
+
+p {
+    background-color: #131313;
+    color: #f1f1f1;
+}
+
+a {
+    color: #f1f1f1;
+}
+
+.form-label {
+    background-color: #131313;
+    color: #f1f1f1;
+    padding: 10px;
+}
+
+/* Input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  border-radius: 8px;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+    color: #f1f1f1;
+  background-color: #131313;
+  outline: none;
+}
+
+
+/* Set a style for all buttons */
+.btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: .5rem;
+  padding:1rem 3rem;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn{
+  background-color: #333;
+}
+
+.btn:hover {
+  background-color: #3bbc2a;
+}
+
+.flex-btn{
+  display: flex;
+  gap:1rem;
+}
+
+.login__btn {
+  display: block;
+  width: 100%;
+  margin-top: 1rem;
+  border-radius: .5rem;
+  padding:1rem 3rem;
+  font-size: 1.7rem;
+  text-transform: capitalize;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.login__btn{
+  background-color: #333;
+}
+
+.login__btn:hover {
+  background-color: #3bbc2a;
+}
+
+.flex-btn{
+  display: flex;
+  gap:1rem;
+}
+
+.remember {
+    background-color: #131313;
+    color: #f1f1f1;
+
+}
+
+.login p{
+    background-color: #131313;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 10px;
+}
+
+
+/* responsivness for button */
+@media screen and (max-width: 300px) {
+  .btn btn-primary {
+     width: 100%;
+  }
+
+}
+  

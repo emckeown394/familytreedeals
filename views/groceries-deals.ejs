@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entertainment</title>
+    <!-- local css file in public directory -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/public/product.css">
+    <link rel="stylesheet" href="/public/styles.css">
+</head>
+<body>
+    <!-- navbar -->
+    <%- include ('navbar') %>
+    <h1>Groceries Deals</h1>
+
+    <% rowdata.forEach((deal) => { %>
+        <div class="deal-container" data-deal-id="<%= deal.id %>">
+          <div class="deal-image">
+            <img src="<%= deal.image %>" alt="Product Image">
+          </div>
+          <div class="deal-info">
+            <h2><%= deal.text %></h2>
+            <p><%= deal.info %></p>
+            <p>Price: £<%= deal.rrp %> <span class="saving">Save <%= deal.saving %>%</span></p>
+            <p>Voucher Code: <%= deal.voucher %></p>
+            <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
+            <a href="#" class="save-btn">SAVE DEAL </a>
+          </div>
+        </div>
+      <% }) %>
+    
+
+    <!-- footer -->
+    <footer><%- include ('footer') %></footer>
+</body>
+</html>

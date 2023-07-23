@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignUp</title>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/dark.css"> -->
+    <link rel="stylesheet" href="/public/styles.css">
+    <link rel="stylesheet" href="/public/signup.css">
+</head>
+<body>
+    <!-- navbar -->
+    <%- include ('navbar') %>
+    <h1>LOGIN</h1>
+
+    <div class="container mt-4">
+        <div class="card" style="width: 18rem;">               
+            <div class="card-body">
+                <form action="login" method="POST">
+                    <div class="mb-3">
+                        <label for="username-reg" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="username-reg" name="username" required>                         
+                    </div>
+                    <div class="mb-3">
+                        <label for="password-reg" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="password-reg" name="password" required>
+                    </div>
+                    <div>
+                        <a><input type="checkbox" onclick="myFunction()" style="margin-bottom: 15px" style="color: #f1f1f1;"> Show Password</a>
+                    </div>
+                    
+                    <!-- <a><input type="submit" class= "button" value="LOGIN"></a> -->
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- footer -->
+    <%- include ('footer') %>
+
+    <!-- js to show and hide password -->
+    <script>
+        function myFunction(){
+            var x = document.getElementById("password-reg");
+            if(x.type === "password"){
+                x.type = "text";
+            }else{
+                x.type = "password";
+            }
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+      event.preventDefault();
+      const formData = new FormData(event.target);
+
+      // Perform AJAX request to the server to handle the form submission
+      fetch('/login', {
+        method: 'POST',
+        body: formData,
+        credentials: 'same-origin' // Include cookies in the request
+      })
+      .then(response => {
+        if (response.redirected) {
+          // If the server redirected, redirect the client to the new location
+          window.location.href = response.url;
+        } else {
+          // Handle unsuccessful login, show an error message, etc.
+        }
+      });
+    });
+
+    // Logout button event listener
+    document.getElementById('logoutButton').addEventListener('click', function (event) {
+      event.preventDefault();
+      // Perform AJAX request to the server to handle logout
+      fetch('/logout', {
+        method: 'GET',
+        credentials: 'same-origin' // Include cookies in the request
+      })
+      .then(response => {
+        // Redirect the client to the login page after logout
+        window.location.href = '/login';
+      });
+    });
+    </script>
+
+    
+</body>
+</html>

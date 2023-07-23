@@ -1,0 +1,134 @@
+* {
+    box-sizing: border-box;
+    font-family: 'Kumbh Sans', sans-serif;
+}
+
+body {
+    background-color: #131313;
+    justify-content: center;
+    align-items: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: black;
+    padding-top: 20px;
+}
+
+.deal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dotted #ddd;
+    border-radius: 15px;
+    padding: 15px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 50%;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .deal-image {
+    flex: 0 0 120px;
+    margin-right: 10px;
+  }
+  
+  .deal-image img {
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+  }
+  
+
+  .deal-image:hover {
+    transform: scale(1.05);
+  }
+  
+  .deal-info {
+    flex: 1;
+  }
+  
+  .deal-info h2 {
+    font-size: 20px;
+    margin: 0 0 5px;
+  }
+  
+  .deal-info p {
+    margin: 0 0 10px;
+    font-size: 16px;
+  }
+  
+  .saving {
+    color: green;
+    font-weight: bold;
+  }
+  
+  .get-deal-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #3bbc2a;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .get-deal-btn:hover {
+    background-color: #309223;
+  }
+
+  .save-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #f88;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+  }
+  
+  .save-btn:hover {
+    background-color: #d66;
+  }
+  
+  .save-btn i.fas.fa-heart {
+    color: orange; 
+  } 
+
+  .filter-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    color: black;
+}
+
+.filter-option {
+    margin: 0 10px;
+    color: black;
+}
+
+.filter-button {
+    padding: 10px 20px;
+    background-color: #00ff00;
+    color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+    background-color: #009900;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .deal {
+    width: 100%;
+  }
+}
+
+  
