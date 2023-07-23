@@ -237,11 +237,11 @@
  }
  
  .btn{
-    background-color: #333;
+    background-color: #3bbc2a;
  }
  
  .btn:hover {
-    background-color: #3bbc2a;
+    background-color: #2d8c21;
  }
  
  .flex-btn{
@@ -274,13 +274,13 @@
  
  .home-bg .home .slide .content span{
     font-size: 2rem;
-    color: white;
+    color: black;
  }
  
  .home-bg .home .slide .content h3{
     margin-top: 1rem;
     font-size: 4rem;
-    color: white;
+    color: black;
     text-transform: uppercase;
  }
  

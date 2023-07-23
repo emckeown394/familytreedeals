@@ -4,9 +4,11 @@ const connection = require("./connection.js");
 const mysql  = require('mysql');
 const session = require('express-session');
 const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
 //for hashing passwords
 const bcrypt = require('bcryptjs');
 const cookieParser = require('cookie-parser');
+const { name } = require("ejs");
 
 
 // Database connection
@@ -32,6 +34,7 @@ app.use(session({
     resave: false,
     saveUninitialized: true
   }));
+app.use(bodyParser.urlencoded({ extended: true}));
   
 
 
@@ -104,12 +107,16 @@ app.get("/tesco_vouchers", (req,res) => {
     res.render('tesco_vouchers');
 });
 
-app.get("/daysout", (req,res) => {
-    res.render('daysout');
+app.get("/post_deals", (req,res) => {
+  res.render('post_deals');
+});
+
+app.get("/post_vouchers", (req,res) => {
+  res.render('post_vouchers');
 });
 
 app.get("/product", (req, res) => {
-  let readsql = "SELECT id, text, city, info, saving, url, voucher, company, user_id, image, rrp FROM deals";
+  let readsql = "SELECT id, text, city, info, saving, url, voucher, company, member_id, image, rrp FROM deals";
   connection.query(readsql, (err, rows) => {
     try {
       if (err) throw err;
@@ -117,7 +124,7 @@ app.get("/product", (req, res) => {
       res.render('product', { title: 'Product', rowdata });
     } catch (err) {
       console.error(err);
-      res.status(500).send('Internal Server Error');
+      res.status(500).send('Failed to load vouchers');
     }
   });
 });
@@ -152,7 +159,7 @@ app.get("/product", (req, res) => {
 
 // All Deals
 app.get("/alldeals",(req,res) => {
-    let readsql = "SELECT id, text, city, info, saving, url, voucher, company, user_id, image, rrp FROM deals";
+    let readsql = "SELECT id, text, city, info, saving, url, voucher, company, member_id, image, rrp FROM deals";
     connection.query(readsql,(err, rows)=>{
         if(err) throw err;
         let rowdata = rows;
@@ -190,6 +197,64 @@ app.get("/entertainment-deals", (req,res) => {
     res.render('entertainment-deals',{title: 'Entertainment Deals', rowdata});
   });      
 });
+
+app.get('/daysout', (req, res) => {
+  let readsql = "SELECT * FROM `deals` WHERE `category` = 'Days out';";
+  connection.query(readsql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.send('An error occurred while fetching days out deals.');
+    } else {
+      let rowdata = rows;
+      res.render('daysout', { title: 'Days Out Deals', rowdata });
+    }
+  });
+});
+
+app.get('/groceries-deals', (req, res) => {
+  let readsql = "SELECT * FROM `deals` WHERE `category` = 'groceries';";
+  connection.query(readsql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.send('An error occurred while fetching groceries deals.');
+    } else {
+      let rowdata = rows;
+      res.render('groceries-deals', { title: 'Groceries Deals', rowdata });
+    }
+  });
+});
+
+app.post('/submit-deal', (req, res) => {
+  const { deal, city, info, saving, url, voucher, company, category, image, rrp } = req.body;
+
+  // const memberID = req.session.memberID;
+
+  // db.query(
+  //   `SELECT memberID FROM members WHERE id = ?`,
+  //   [memberID],
+  //   (err, result) => {
+  //     if (err) {
+  //       console.error(err);
+  //       res.send('An error occurred during posting deal.');
+  //     } else {
+  //       const memberID = result[0].memberID;
+
+        // Insert deal into the database
+        db.query(
+          `INSERT INTO deals (text, city, info, saving, url, voucher, company, category, image, rrp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+          [deal, city, info, saving, url, voucher, company, category, image, rrp],
+          (err) => {
+            if (err) {
+              console.error(err);
+              res.send('An error occurred during posting deal.');
+            } else {
+              res.redirect('/post_deals');
+            }
+          }
+        );
+      
+});
+
 
 
 // signup/login
@@ -263,7 +328,7 @@ app.post('/signup', (req, res) => {
     req.session.destroy();
     res.clearCookie('connect.sid');
     res.redirect('/login');
-  })
+  });
   
   
 //server
