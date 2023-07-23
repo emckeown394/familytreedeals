@@ -33,8 +33,8 @@
 					  <a href="#">Saved</a>
 					</div>
 				  </div>
-				<a href="/" class="button" id="logoutButton">LOGOUT</a>
-				<a href="javascript:void(0);" class="icon" onclick="myFunction()">
+				<a href="/logout" class="button" id="logoutButton">LOGOUT</a>
+				<a href="javascript:void(0);" class="icon" onclick="logout()">
 				<i class="fa fa-bars"></i>
 				</a>
 			</div>
@@ -42,14 +42,19 @@
 	</nav>
 
 	<script>
-		function myFunction() {
-		  var x = document.getElementById("myTopnav");
-		  if (x.className === "topnav") {
-			x.className += " responsive";
-		  } else {
-			x.className = "topnav";
-		  }
+		function logout() {
+  			// Send a request to the "/logout" route to trigger the logout process on the server
+ 			 fetch('/logout', {
+    			method: 'GET',
+    			credentials: 'include',
+ 			 })
+   			 .then((response) => {
+     			 window.location.href = '/login';
+    			})
+    			.catch((error) => {
+     			 console.error('Error during logout:', error);
+    			});
 		}
-		</script>
+	</script>
 
     <script src="'app.js"></script>

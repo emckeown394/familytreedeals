@@ -35,6 +35,16 @@ app.use(session({
     saveUninitialized: true
   }));
 app.use(bodyParser.urlencoded({ extended: true}));
+
+function isAuthenticated(req, res, next) {
+  if (req.session.loggedin) {
+    // If the user is authenticated, proceed
+    next();
+  } else {
+    // If the user is not authenticated, redirect to the login page
+    res.redirect('/login');
+  }
+}
   
 
 
@@ -63,7 +73,7 @@ app.get("/privacy", (req,res) => {
     res.render('privacy');
 });
 
-app.get('/logged', function(req, res) {
+app.get('/logged', isAuthenticated, function(req, res) {
     if (req.session.loggedin) {
       // User is logged in, render logged_index page
       res.render('logged_index');
@@ -327,7 +337,7 @@ app.post('/signup', (req, res) => {
   app.get('/logout', (req, res) => {
     req.session.destroy();
     res.clearCookie('connect.sid');
-    res.redirect('/login');
+    res.redirect('/');
   });
   
   

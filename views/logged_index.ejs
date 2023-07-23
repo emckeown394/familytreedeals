@@ -39,7 +39,7 @@
          <div class="content">
             <span>up to 50% off</span>
             <h3>latest entertainment</h3>
-            <a href="/" class="btn">view deals</a>
+            <a href="entertainment-deals" class="btn">view deals</a>
          </div>
       </div>
 
@@ -49,7 +49,7 @@
          </div>
          <div class="content">
             <span>up to 50% off</span>
-            <h3>latest products</h3>
+            <h3>latest outdoor products</h3>
             <a href="/" class="btn">view deals</a>
          </div>
       </div>
@@ -61,13 +61,11 @@
          <div class="content">
             <span>up to 50% off</span>
             <h3>family days out</h3>
-            <a href="/" class="btn">view deals</a>
+            <a href="daysout" class="btn">view deals</a>
          </div>
       </div>
 
    </div>
-
-      <div class="swiper-pagination"></div>
 
    </div>
 
@@ -83,34 +81,34 @@
 
    <div class="swiper-wrapper">
 
-   <a href="/" class="swiper-slide slide">
+   <a href="entertainment-deals" class="swiper-slide slide">
       <img src="/images/entertainment.png" alt="">
-      <h3>entertainment</h3>
+      <h3>Entertainment</h3>
    </a>
 
-   <a href="/" class="swiper-slide slide">
+   <a href="daysout" class="swiper-slide slide">
       <img src="/images/days out.jpg" alt="">
-      <h3>days out</h3>
+      <h3>Days Out</h3>
    </a>
 
-   <a href="/" class="swiper-slide slide">
+   <a href="groceries-deals" class="swiper-slide slide">
       <img src="/images/groceries.png" alt="">
-      <h3>groceries</h3>
+      <h3>Groceries</h3>
    </a>
 
    <a href="/" class="swiper-slide slide">
       <img src="/images/eating out.jpg" alt="">
-      <h3>eating out</h3>
+      <h3>Eating Out</h3>
    </a>
 
    <a href="/" class="swiper-slide slide">
       <img src="/images/indoor.jpg" alt="">
-      <h3>indoor products</h3>
+      <h3>Indoor Products</h3>
    </a>
 
    <a href="/" class="swiper-slide slide">
       <img src="/images/outdoor.jpg" alt="">
-      <h3>outdoor products</h3>
+      <h3>Outdoor Products</h3>
    </a>
 
 
@@ -122,44 +120,45 @@
 
 </section>
 
-<section class="home-products">
+<section class="category">
 
-   <h1 class="heading">latest products</h1>
+   <h1 class="heading">Latest Vouchers</h1>
 
-   <div class="swiper products-slider">
+   <div class="swiper category-slider">
 
    <div class="swiper-wrapper">
 
-   
-   <form action="" method="post" class="swiper-slide slide">
-      <input type="hidden" name="pid" value="<?= $fetch_product['id']; ?>">
-      <input type="hidden" name="name" value="<?= $fetch_product['name']; ?>">
-      <input type="hidden" name="price" value="<?= $fetch_product['price']; ?>">
-      <input type="hidden" name="image" value="<?= $fetch_product['image_01']; ?>">
-      <button class="fas fa-heart" type="submit" name="add_to_wishlist"></button>
-      <a href="quick_view.php?pid=<?= $fetch_product['id']; ?>" class="fas fa-eye"></a>
-      <img src="uploaded_img/<?= $fetch_product['image_01']; ?>" alt="">
-      <div class="name"><?= $fetch_product['name']; ?></div>
-      <div class="flex">
-         <div class="price"><span>$</span><?= $fetch_product['price']; ?><span>/-</span></div>
-         <input type="number" name="qty" class="qty" min="1" max="99" onkeypress="if(this.value.length == 2) return false;" value="1">
-      </div>
-      <input type="submit" value="add to cart" class="btn" name="add_to_cart">
-   </form>
-  
+   <a href="pizza_hut_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v1.jpg" alt="">
+      <h3>Pizza Hut</h3>
+   </a>
 
-   </div>
+   <a href="lidl_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v2.png" alt="">
+      <h3>Lidl</h3>
+   </a>
 
-   <div class="swiper-pagination"></div>
+   <a href="amazon_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v3.jpg" alt="">
+      <h3>Amazon</h3>
+   </a>
 
-   </div>
+   <a href="cineworld_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v4.jpg" alt="">
+      <h3>Cineworld</h3>
+   </a>
 
+   <a href="tesco_vouchers" class="swiper-slide slide">
+      <img src="/images/vouchers/v5.jpg" alt="">
+      <h3>Tesco</h3>
+   </a>
+
+</div>
+
+<div class="swiper-pagination"></div>
+
+</div>
 </section>
-
-<!-- footer -->
-<%- include ('footer') %>
-
-
 
 
 <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
@@ -220,6 +219,9 @@ var swiper = new Swiper(".products-slider", {
 });
 
 </script>
+
+<!-- footer -->
+<%- include ('footer') %>
 
 </body>
 </html>
