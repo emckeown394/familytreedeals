@@ -7,14 +7,32 @@
     text-transform: capitalize;
     transition: all .2s linear;
  }
- 
- body{
-   background-color: #131313;
+
+ h1 {
+  text-align: center;
+  padding: 20px;
+ }
+
+ h2 {
+  text-align: center;
+ }
+
+ h3 {
+  font-size: 20px;
+  text-align: center;
+ }
+
+ p {
+  font-size: 15px;
+  text-align: center;
  }
  
  .container{
    padding:25px 10%;
    text-align: center;
+   display: flex;
+   flex-wrap: wrap;
+   justify-content: center;
  }
  
  .container .heading{
@@ -75,19 +93,47 @@
 .promo {
   background: #ccc;
   padding: 3px;
+  color: black;
 }
 
 .code {
-  color: white;
-}
-
-.expire {
-  color: red;
+  color: black;
 }
 
 a .shop_link:link {
   color: blue;
   text-decoration: underline;
+}
+
+.filter-txt {
+  color: white;
+}
+
+.filter-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.filter-option {
+  margin: 0 10px;
+  color: black;
+}
+
+.filter-button {
+  padding: 10px 20px;
+  background-color: #00ff00;
+  color: #000;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.filter-button:hover {
+  background-color: #009900;
 }
  
  /* responsiveness */

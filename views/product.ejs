@@ -11,7 +11,7 @@
 <body>
     <!-- navbar -->
     <%- include ('navbar') %>
-    <h1>Search our range of vouchers added by the community</h1>
+    <h1>EXPLORE OUR RANGE OF DEALS ADDED BY THE COMMUNITY</h1>
     <!-- filter menu -->
     <div class="filter-menu">
         <div class="filter-option">
@@ -66,43 +66,6 @@
       
     <!-- js for filter options -->
     <script>
-    // Retrieve DOM elements
-// var cityFilter = document.getElementById("city-filter");
-// var savingFilter = document.getElementById("saving-filter");
-// var categoryFilter = document.getElementById("category-filter");
-
-// // Add event listener to the filter button
-// var filterButton = document.querySelector(".filter-button");
-// filterButton.addEventListener("click", applyFilter);
-
-// // Function to apply filters and display corresponding deals
-// function applyFilter() {
-//   // Retrieve selected filter options
-//   var selectedCity = cityFilter.value;
-//   var selectedSaving = savingFilter.value;
-//   var selectedCategory = categoryFilter.value;
-
-//   // Loop through the deals and show/hide based on filter selection
-//   var deals = document.querySelectorAll(".deal-container");
-//   deals.forEach(function (deal) {
-//     var dealId = deal.getAttribute("data-deal-id");
-//     var tags = rowdata[dealId].tags;
-
-//     // Apply filter logic
-//     var cityMatch = selectedCity === "" || tags.includes(selectedCity);
-//     var savingMatch = selectedSaving === "" || tags.includes(selectedSaving);
-//     var categoryMatch = selectedCategory === "" || tags.includes(selectedCategory);
-
-//     // Show or hide the deal based on filter selection
-//     if (cityMatch && savingMatch && categoryMatch) {
-//       deal.style.display = "block";
-//     } else {
-//       deal.style.display = "none";
-//     }
-//   });
-// }
-
-
         function filterImages() {
             var cityFilter = document.getElementById('city-filter').value;
             var savingFilter = document.getElementById('saving-filter').value;

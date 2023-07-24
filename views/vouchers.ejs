@@ -13,44 +13,50 @@
 <body>
     <!-- navbar -->
 	<%- include ('navbar') %>
-   
-<div class="container">
 
-   <h1 class="heading">Search Vouchers</h1>
+   <h1>EXPLORE OUR RANGE OF VOUCHERS ADDED BY THE COMMUNITY</h1>
 
-   <input type="text" placeholder="search" id="search-box">
-
-   <div class="image-container">
-
-      <div class="image" data-title="days out">
-         <img src="/images/thorpe park.jpg" alt="">
-         <h3>Thorpe Park</h3>
+   <div class="filter-menu">
+      <div class="filter-option">
+          <label for="saving-filter" id="filter-txt">Saving:</label>
+          <select id="saving-filter">
+              <option value="">All</option>
+              <option value="saving1">0</option>
+              <option value="saving2">15</option>
+              <option value="saving3">20</option>
+              <option value="saving3">25</option>
+              <option value="saving3">30</option>
+              <option value="saving3">50</option>
+          </select>
       </div>
-      <div class="image" data-title="days out">
-        <img src="/images/belfast zoo.png" alt="">
-        <h3>Belfast Zoo</h3>
-     </div>
-     <div class="image" data-title="days out">
-        <img src="/images/funtasia.jpg" alt="">
-        <h3>Funtasia</h3>
-     </div>
-     <div class="image" data-title="days out">
-        <img src="/images/got.jpg" alt="">
-        <h3>GOT Studio Tour</h3>
-     </div>
-     <div class="image" data-title="days out">
-        <img src="/images/legoland.jpg" alt="">
-        <h3>Legoland</h3>
-     </div>
-     <div class="image" data-title="days out">
-        <img src="/images/dublin zoo.jpg" alt="">
-        <h3>Dublin Zoo</h3>
-     </div>
+      <div class="filter-option">
+          <label for="category-filter" id="filter-txt">Category:</label>
+          <select id="category-filter">
+              <option value="">All</option>
+              <option value="category1">Eating out</option>
+              <option value="category2">Entertainment</option>
+              <option value="category3">Groceries</option>
+          </select>
+      </div>
+      <button class="filter-button" onclick="applyFilter()">Filter</button>
+  </div>
 
-
-   </div>
-
-</div>
+   <% voucherData.forEach((voucher) => { %>
+      <div class="voucher">
+         <div class="v_container">
+          <h3><%= voucher.company %></h3>
+         </div>
+         <img src="<%= voucher.image %>" alt="" style="width:100%;">
+         <div class="v_container" style="background-color:white">
+         <h2><b><%= voucher.saving %> % OFF</b></h2>
+         <p><%= voucher.text %></p>
+          <p>Check out <a href="<%= voucher.link %>" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link"><%= voucher.company %></a>.</p>
+         </div>
+         <div class="container">
+         <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
+       </div>
+      </div>
+   <% }) %>
 
 <!-- js  -->
 <script>

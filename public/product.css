@@ -97,7 +97,7 @@ h1 {
     color: orange; 
   } 
 
-  .filter-menu {
+.filter-menu {
     display: flex;
     justify-content: center;
     align-items: center;

@@ -65,10 +65,6 @@ app.get("/contact", (req,res) => {
     res.render('contact');
 });
 
-app.get("/vouchers", (req,res) => {
-    res.render('vouchers');
-});
-
 app.get("/privacy", (req,res) => {
     res.render('privacy');
 });
@@ -134,38 +130,24 @@ app.get("/product", (req, res) => {
       res.render('product', { title: 'Product', rowdata });
     } catch (err) {
       console.error(err);
-      res.status(500).send('Failed to load vouchers');
+      res.status(500).send('Failed to load deals');
     }
   });
 });
 
-
-
-// app.get("/product", function (req,res) {
-//   let city = req.query.city || "";
-//   let saving = req.query.saving || "";
-//   let category = req.query.category || "";
-
-//   let sql = `SELECT deals.text, deals.city, deals.info, deals.saving, deals.url, 
-//               deals.voucher, deals.company, deals.category, deals.user_id, deals.image, deals.rrp
-//               FROM deals
-//             WHERE deals.city LIKE ?
-//             AND deals.saving LIKE ?
-//             AND deals.category LIKE ?`;
-
-//   let values = [`%${city}%`, `%${saving}%`, `%${category}%`];
-
-//   connection.query(sql, values, function (err, rows) {
-//     if (err) throw err;
-//     res.render("product", {
-//       deals:
-//         rows,
-//       city: city,
-//       saving: saving,
-//       category: category,
-//     });
-//   });
-// });
+app.get("/vouchers", (req, res) => {
+  let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let voucherData = rows;
+      res.render('vouchers', { title: 'Vouchers', voucherData });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to load vouchers');
+    }
+  });
+});
 
 // All Deals
 app.get("/alldeals",(req,res) => {
@@ -196,6 +178,23 @@ app.get("/row",(req,res) => {
         };
         res.render('deals',{deals})
     });
+});
+
+app.get("/rows",(req,res) => {
+  let showid = req.query.id;
+  let readsql = "SELECT * FROM vouchers WHERE id = ?";
+  connection.query(readsql,[showid],(err, rows)=>{
+      if(err) throw err;
+      let vouchers = {
+          text: rows[0]['text'],
+          company: rows[0]['company'],
+          saving: rows[0]['saving'],
+          link: rows[0]['link'],
+          category: rows[0]['category'],
+          image: rows[0]['image'],
+      };
+      res.render('vouchers',{vouchers})
+  });
 });
 
 app.get("/entertainment-deals", (req,res) => {
@@ -236,18 +235,6 @@ app.get('/groceries-deals', (req, res) => {
 
 app.post('/submit-deal', (req, res) => {
   const { deal, city, info, saving, url, voucher, company, category, image, rrp } = req.body;
-
-  // const memberID = req.session.memberID;
-
-  // db.query(
-  //   `SELECT memberID FROM members WHERE id = ?`,
-  //   [memberID],
-  //   (err, result) => {
-  //     if (err) {
-  //       console.error(err);
-  //       res.send('An error occurred during posting deal.');
-  //     } else {
-  //       const memberID = result[0].memberID;
 
         // Insert deal into the database
         db.query(
