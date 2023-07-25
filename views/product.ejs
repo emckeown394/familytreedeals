@@ -66,6 +66,10 @@
             <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
             <% if (loggedIn) { %>
                 <button class="save-btn" onclick="saveDeal('<%= deal.id %>')">SAVE DEAL</button>
+                <button class="like-btn" onclick="likeDeal('<%= deal.id %>')">
+                    <i class="far fa-heart"></i>
+                </button>
+                <span class="like-count"> <%= deal.likes %> </span>
               <% } else { %>
                 <a href="/login" class="d-log-save-btn">LOG IN TO SAVE DEAL</a>
               <% } %>
@@ -102,6 +106,16 @@
 
         function applyFilter() {
             filterImages();
+        }
+
+        function likeDeal(dealId) {
+            $.post('/like_deal', { dealId: dealId }, function (data) {
+                console.log('Deal liked!');
+                // Update the like count on the front-end
+                const likeCountElement = document.querySelector(`[data-deal-id="${dealId}"] .like-count`);
+                const currentLikes = parseInt(likeCountElement.textContent);
+                likeCountElement.textContent = currentLikes + 1;
+            });
         }
     </script>
       <!-- footer -->

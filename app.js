@@ -179,7 +179,7 @@ app.get("/post_vouchers", (req,res) => {
 });
 
 app.get("/product", (req, res) => {
-  let readsql = "SELECT id, text, city, info, saving, url, voucher, company, member_id, image, rrp FROM deals";
+  let readsql = "SELECT id, text, city, info, saving, url, voucher, company, member_id, image, rrp, likes FROM deals";
   connection.query(readsql, (err, rows) => {
     try {
       if (err) throw err;
@@ -191,6 +191,23 @@ app.get("/product", (req, res) => {
       res.status(500).send('Failed to load deals');
     }
   });
+});
+
+app.post('/like_deal', (req, res) => {
+  const dealId = req.body.dealId;
+  
+  db.query(
+    'UPDATE deals SET likes = likes + 1 WHERE id = ?',
+    [dealId],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Failed to update like count' });
+      } else {
+        res.status(200).json({ message: 'Deal liked!' });
+      }
+    }
+  );
 });
 
 app.get("/vouchers", (req, res) => {
@@ -234,7 +251,8 @@ app.get("/row",(req,res) => {
             voucher: rows[0]['voucher'],
             company: rows[0]['company'],
             category: rows[0]['category'],
-            rrp: rows[0]['rrp']
+            rrp: rows[0]['rrp'],
+            likes: rows[0]['likes']
         };
         res.render('deals',{deals})
     });
@@ -263,7 +281,8 @@ app.get("/entertainment-deals", (req,res) => {
   connection.query(readsql,(err, rows)=>{
     if(err) throw err;
     let rowdata = rows;
-    res.render('entertainment-deals',{title: 'Entertainment Deals', rowdata});
+    let loggedIn = req.session.loggedin;
+    res.render('entertainment-deals',{title: 'Entertainment Deals', rowdata, loggedIn});
   });      
 });
 
@@ -275,7 +294,8 @@ app.get('/daysout', (req, res) => {
       res.send('An error occurred while fetching days out deals.');
     } else {
       let rowdata = rows;
-      res.render('daysout', { title: 'Days Out Deals', rowdata });
+      let loggedIn = req.session.loggedin;
+      res.render('daysout', { title: 'Days Out Deals', rowdata, loggedIn });
     }
   });
 });
@@ -288,7 +308,8 @@ app.get('/groceries-deals', (req, res) => {
       res.send('An error occurred while fetching groceries deals.');
     } else {
       let rowdata = rows;
-      res.render('groceries-deals', { title: 'Groceries Deals', rowdata });
+      let loggedIn = req.session.loggedin;
+      res.render('groceries-deals', { title: 'Groceries Deals', rowdata, loggedIn });
     }
   });
 });
