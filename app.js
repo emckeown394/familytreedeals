@@ -312,6 +312,25 @@ app.post('/submit-deal', (req, res) => {
       
 });
 
+app.post('/submit-voucher', (req, res) => {
+  const { voucher, company, saving, code, url, category, image } = req.body;
+
+        // Insert voucher into the database
+        db.query(
+          `INSERT INTO vouchers (text, company, saving, code, link, category, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+          [voucher, company, saving, code, url, category, image],
+          (err) => {
+            if (err) {
+              console.error(err);
+              res.send('An error occurred during posting voucher.');
+            } else {
+              res.redirect('/post_vouchers');
+            }
+          }
+        );
+      
+});
+
 
 
 // signup/login

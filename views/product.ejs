@@ -15,7 +15,7 @@
       <% } else { %>
         <%- include ('navbar') %>
       <% } %>
-      
+
     <h1>EXPLORE OUR RANGE OF DEALS ADDED BY THE COMMUNITY</h1>
     <!-- filter menu -->
     <div class="filter-menu">
@@ -64,7 +64,11 @@
             <p>Price: £<%= deal.rrp %> <span class="saving">Save <%= deal.saving %>%</span></p>
             <p>Voucher Code: <%= deal.voucher %></p>
             <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
-            <a href="#" class="save-btn">SAVE DEAL </a>
+            <% if (loggedIn) { %>
+                <button class="save-btn" onclick="saveDeal('<%= deal.id %>')">SAVE DEAL</button>
+              <% } else { %>
+                <a href="/login" class="d-log-save-btn">LOG IN TO SAVE DEAL</a>
+              <% } %>
           </div>
         </div>
       <% }) %>

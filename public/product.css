@@ -93,6 +93,22 @@ h1 {
     background-color: #d66;
   }
   
+  .d-log-save-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #f88;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .d-log-save-btn:hover {
+    background-color: #d66;
+  }
+
 
 .filter-menu {
     display: flex;
