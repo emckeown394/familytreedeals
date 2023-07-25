@@ -11,7 +11,11 @@
 </head>
 <body>
     <!-- navbar -->
-    <%- include ('navbar') %>
+    <% if (loggedIn) { %>
+        <%- include ('navbar_logged') %>
+      <% } else { %>
+        <%- include ('navbar') %>
+      <% } %>
     <h1>All Deals</h1>
     <div class="filter-menu">
         <div class="filter-option">

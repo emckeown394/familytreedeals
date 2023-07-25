@@ -93,9 +93,6 @@ h1 {
     background-color: #d66;
   }
   
-  .save-btn i.fas.fa-heart {
-    color: orange; 
-  } 
 
 .filter-menu {
     display: flex;

@@ -13,43 +13,32 @@
 <body>
     <!-- navbar -->
 	<%- include ('navbar') %>
+
+  <h1>Amazon Vouchers</h1>
    
-<div class="container">
-
-   <h1 class="heading">Vouchers for Amazon</h1>
-
-   <div class="voucher">
-    <div class="v_container">
-      <h3>Amazon</h3>
+  <% voucherData.forEach((voucher) => { %>
+    <div class="voucher" data-voucher-id="<%= voucher.id %>">
+      <div class="v_container">
+        <h3><%= voucher.company %></h3>
+      </div>
+      <img src="<%= voucher.image %>" alt="" style="width:100%;">
+      <div class="v_container" style="background-color:white">
+        <h2><b><%= voucher.saving %> % OFF</b></h2>
+        <p><%= voucher.text %></p>
+        <p>Check out <a href="<%= voucher.link %>" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link"><%= voucher.company %></a>.</p>
+      </div>
+      <div class="container">
+        <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
+      </div>
+      <div class="save-btn-container">
+        <% if (loggedIn) { %>
+          <button class="v-save-btn" onclick="saveVoucher('<%= voucher.id %>')">SAVE VOUCHER</button>
+        <% } else { %>
+          <a href="/login" class="v-log-save-btn">LOG IN TO SAVE</a>
+        <% } %>
+      </div>
     </div>
-    <img src="/images//vouchers/v3.jpg" alt="" style="width:100%;">
-    <div class="v_container" style="background-color:white">
-      <h2><b>10% OFF YOUR PURCHASE</b></h2>
-      <p>Enjoy 10% off family board games at Amazon.</p>
-      <p>Check out <a href="https://www.amazon.co.uk/" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link">Amazon</a>.</p>
-    </div>
-    <div class="container">
-      <p class="code">Use Promo Code: <span class="promo">UBD678W4JISENF</span></p>
-    </div>
-  </div>
-
-  <div class="voucher">
-    <div class="v_container">
-      <h3>Amazon</h3>
-    </div>
-    <img src="/images//vouchers/v3.jpg" alt="" style="width:100%;">
-    <div class="v_container" style="background-color:white">
-      <h2><b>30% OFF</b></h2>
-      <p>Up To 30% Off Your Purchase At AmazonFresh.</p>
-      <p>Check out <a href="https://www.amazon.co.uk/" style="color:dodgerblue" target="_blank" rel="noopener noreferrer">Amazon</a>.</p>
-    </div>
-    <div class="container">
-      <p class="code">Use Promo Code: <span class="promo">HHJS67387HSH</span></p>
-    </div>
-  </div>
-
-
-</div>
+  <% }) %>
 
 
 <!-- footer -->

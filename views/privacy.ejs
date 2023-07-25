@@ -10,7 +10,11 @@
 </head>
 <body>
     <!-- navbar -->
-    <%- include ('navbar') %>
+    <% if (loggedIn) { %>
+        <%- include ('navbar_logged') %>
+      <% } else { %>
+        <%- include ('navbar') %>
+      <% } %>
     
         <h1>Privacy Statement for Family Deal Tree</h1>
 <p>This Privacy Policy describes how your personal information is collected, used, and shared when you visit.</p>

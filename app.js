@@ -62,7 +62,8 @@ app.get("/login", async (req,res) => {
 });
 
 app.get("/contact", (req,res) => {
-    res.render('contact');
+  let loggedIn = req.session.loggedin;
+    res.render('contact', {loggedin});
 });
 
 app.get("/privacy", (req,res) => {
@@ -90,27 +91,83 @@ app.get("/logged_index", (req,res) => {
 });
 
 app.get("/deals", (req,res) => {
-    res.render('deals');
+  let loggedIn = req.session.loggedin;
+    res.render('deals', loggedIn);
 });
 
-app.get("/lidl_vouchers", (req,res) => {
-    res.render('lidl_vouchers');
+app.get("/lidl_vouchers", (req, res) => {
+  let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers WHERE LOWER(company) = 'lidl'";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let voucherData = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('lidl_vouchers', { title: 'Lidl Vouchers', voucherData, loggedIn });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to load vouchers');
+    }
+  });
 });
 
-app.get("/pizza_hut_vouchers", (req,res) => {
-    res.render('pizza_hut_vouchers');
+app.get("/pizza_hut_vouchers", (req, res) => {
+  let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers WHERE LOWER(company) = 'pizza hut'";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let voucherData = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('pizza_hut_vouchers', { title: 'Pizza Hut Vouchers', voucherData, loggedIn });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to load vouchers');
+    }
+  });
 });
 
-app.get("/amazon_vouchers", (req,res) => {
-    res.render('amazon_vouchers');
+app.get("/amazon_vouchers", (req, res) => {
+  let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers WHERE LOWER(company) = 'amazon'";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let voucherData = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('amazon_vouchers', { title: 'Amazon Vouchers', voucherData, loggedIn });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to load vouchers');
+    }
+  });
 });
 
-app.get("/cineworld_vouchers", (req,res) => {
-    res.render('cineworld_vouchers');
+app.get("/cineworld_vouchers", (req, res) => {
+  let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers WHERE LOWER(company) = 'cineworld'";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let voucherData = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('cineworld_vouchers', { title: 'Cineworld Vouchers', voucherData, loggedIn });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to load vouchers');
+    }
+  });
 });
 
-app.get("/tesco_vouchers", (req,res) => {
-    res.render('tesco_vouchers');
+app.get("/tesco_vouchers", (req, res) => {
+  let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers WHERE LOWER(company) = 'tesco'";
+  connection.query(readsql, (err, rows) => {
+    try {
+      if (err) throw err;
+      let voucherData = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('tesco_vouchers', { title: 'Tesco Vouchers', voucherData, loggedIn });
+    } catch (err) {
+      console.error(err);
+      res.status(500).send('Failed to load vouchers');
+    }
+  });
 });
 
 app.get("/post_deals", (req,res) => {
@@ -127,7 +184,8 @@ app.get("/product", (req, res) => {
     try {
       if (err) throw err;
       let rowdata = rows;
-      res.render('product', { title: 'Product', rowdata });
+      let loggedIn = req.session.loggedin;
+      res.render('product', { title: 'Product', rowdata, loggedIn });
     } catch (err) {
       console.error(err);
       res.status(500).send('Failed to load deals');
@@ -141,13 +199,15 @@ app.get("/vouchers", (req, res) => {
     try {
       if (err) throw err;
       let voucherData = rows;
-      res.render('vouchers', { title: 'Vouchers', voucherData });
+      let loggedIn = req.session.loggedin;
+      res.render('vouchers', { title: 'Vouchers', voucherData, loggedIn });
     } catch (err) {
       console.error(err);
       res.status(500).send('Failed to load vouchers');
     }
   });
 });
+
 
 // All Deals
 app.get("/alldeals",(req,res) => {

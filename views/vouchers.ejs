@@ -12,7 +12,11 @@
 </head>
 <body>
     <!-- navbar -->
-	<%- include ('navbar') %>
+    <% if (loggedIn) { %>
+      <%- include ('navbar_logged') %>
+    <% } else { %>
+      <%- include ('navbar') %>
+    <% } %>
 
    <h1>EXPLORE OUR RANGE OF VOUCHERS ADDED BY THE COMMUNITY</h1>
 
@@ -41,22 +45,30 @@
       <button class="filter-button" onclick="applyFilter()">Filter</button>
   </div>
 
-   <% voucherData.forEach((voucher) => { %>
-      <div class="voucher">
-         <div class="v_container">
-          <h3><%= voucher.company %></h3>
-         </div>
-         <img src="<%= voucher.image %>" alt="" style="width:100%;">
-         <div class="v_container" style="background-color:white">
-         <h2><b><%= voucher.saving %> % OFF</b></h2>
-         <p><%= voucher.text %></p>
-          <p>Check out <a href="<%= voucher.link %>" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link"><%= voucher.company %></a>.</p>
-         </div>
-         <div class="container">
-         <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
-       </div>
-      </div>
-   <% }) %>
+  <% voucherData.forEach((voucher) => { %>
+   <div class="voucher" data-voucher-id="<%= voucher.id %>">
+     <div class="v_container">
+       <h3><%= voucher.company %></h3>
+     </div>
+     <img src="<%= voucher.image %>" alt="" style="width:100%;">
+     <div class="v_container" style="background-color:white">
+       <h2><b><%= voucher.saving %> % OFF</b></h2>
+       <p><%= voucher.text %></p>
+       <p>Check out <a href="<%= voucher.link %>" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link"><%= voucher.company %></a>.</p>
+     </div>
+     <div class="container">
+       <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
+     </div>
+     <div class="save-btn-container">
+      <% if (loggedIn) { %>
+         <button class="v-save-btn" onclick="saveVoucher('<%= voucher.id %>')">SAVE VOUCHER</button>
+       <% } else { %>
+         <a href="/login" class="v-log-save-btn">LOG IN TO SAVE</a>
+       <% } %>
+     </div>
+   </div>
+ <% }) %>
+ 
 
 <!-- js  -->
 <script>

@@ -10,7 +10,12 @@
 </head>
 <body>
     <!-- navbar -->
-    <%- include ('navbar') %>
+    <% if (loggedIn) { %>
+        <%- include ('navbar_logged') %>
+      <% } else { %>
+        <%- include ('navbar') %>
+      <% } %>
+      
     <h1>EXPLORE OUR RANGE OF DEALS ADDED BY THE COMMUNITY</h1>
     <!-- filter menu -->
     <div class="filter-menu">
@@ -58,8 +63,8 @@
             <p><%= deal.info %></p>
             <p>Price: £<%= deal.rrp %> <span class="saving">Save <%= deal.saving %>%</span></p>
             <p>Voucher Code: <%= deal.voucher %></p>
-            <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET VOUCHER* </a>
-            <a href="#" class="save-btn">Save Voucher </a>
+            <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
+            <a href="#" class="save-btn">SAVE DEAL </a>
           </div>
         </div>
       <% }) %>

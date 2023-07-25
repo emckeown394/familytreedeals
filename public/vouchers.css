@@ -105,6 +105,43 @@ a .shop_link:link {
   text-decoration: underline;
 }
 
+.save-btn-container {
+  display: flex;
+  justify-content: center;
+}
+
+.v-save-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #f88;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.v-save-btn:hover {
+  background-color: #d66;
+}
+
+.v-log-save-btn {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #f88;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 4px;
+  justify-content: center;
+  align-items: center;
+}
+
+.v-log-save-btn:hover {
+  background-color: #d66;
+}
+
 .filter-txt {
   color: white;
 }

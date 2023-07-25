@@ -11,7 +11,11 @@
 </head>
 <body>
     <!-- navbar -->
-    <%- include ('navbar') %>
+    <% if (loggedIn) { %>
+        <%- include ('navbar_logged') %>
+      <% } else { %>
+        <%- include ('navbar') %>
+      <% } %>
     <h1>Entertainment Deals</h1>
 
     <% rowdata.forEach((deal) => { %>
