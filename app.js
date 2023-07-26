@@ -314,6 +314,48 @@ app.get('/groceries-deals', (req, res) => {
   });
 });
 
+app.get('/outdoor-deals', (req, res) => {
+  let readsql = "SELECT * FROM `deals` WHERE `category` = 'Outdoor products';";
+  connection.query(readsql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.send('An error occurred while fetching outdoor products deals.');
+    } else {
+      let rowdata = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('outdoor-deals', { title: 'Outdoor Product Deals', rowdata, loggedIn });
+    }
+  });
+});
+
+app.get('/indoor-deals', (req, res) => {
+  let readsql = "SELECT * FROM `deals` WHERE `category` = 'Indoor products';";
+  connection.query(readsql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.send('An error occurred while fetching indoor products deals.');
+    } else {
+      let rowdata = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('indoor-deals', { title: 'Indoor Product Deals', rowdata, loggedIn });
+    }
+  });
+});
+
+app.get('/eatingout-deals', (req, res) => {
+  let readsql = "SELECT * FROM `deals` WHERE `category` = 'Eating out';";
+  connection.query(readsql, (err, rows) => {
+    if (err) {
+      console.error(err);
+      res.send('An error occurred while fetching eating out deals.');
+    } else {
+      let rowdata = rows;
+      let loggedIn = req.session.loggedin;
+      res.render('eatingout-deals', { title: 'Eating Out Deals', rowdata, loggedIn });
+    }
+  });
+});
+
 app.post('/submit-deal', (req, res) => {
   const { deal, city, info, saving, url, voucher, company, category, image, rrp } = req.body;
 
