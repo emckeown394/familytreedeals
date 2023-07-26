@@ -210,6 +210,42 @@ app.post('/like_deal', (req, res) => {
   );
 });
 
+app.get("/filteredDeals", (req, res) => {
+  const cityFilter = req.query.city;
+  const savingFilter = req.query.saving;
+  const categoryFilter = req.query.category;
+
+  // Construct the SQL query based on the filter criteria
+  let sql = "SELECT * FROM deals WHERE 1 = 1";
+  const params = [];
+
+  if (cityFilter) {
+    sql += " AND city = ?";
+    params.push(cityFilter);
+  }
+
+  if (savingFilter) {
+    sql += " AND saving = ?";
+    params.push(savingFilter);
+  }
+
+  if (categoryFilter) {
+    sql += " AND category = ?";
+    params.push(categoryFilter);
+  }
+
+  // Execute the SQL query
+  db.query(sql, params, (err, results) => {
+    if (err) {
+      console.error("Error fetching deals from the database:", err);
+      res.status(500).json({ error: "Internal server error" });
+      return;
+    }
+
+    res.json(results);
+  });
+});
+
 app.get("/vouchers", (req, res) => {
   let readsql = "SELECT id, text, company, saving, code, link, category, image FROM vouchers";
   connection.query(readsql, (err, rows) => {

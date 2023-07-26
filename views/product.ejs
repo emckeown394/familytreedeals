@@ -23,31 +23,37 @@
             <label for="city-filter">City:</label>
             <select id="city-filter">
                 <option value="">All</option>
-                <option value="city1">London</option>
-                <option value="city2">Windsor</option>
-                <option value="city3">Dublin</option>
-                <option value="city4">Belfast</option>
-                <option value="city5">Drogheda</option>
-                <option value="city6">Banbridge</option>
+                <option value="London">London</option>
+                <option value="Windsor">Windsor</option>
+                <option value="Dublin">Dublin</option>
+                <option value="Belfast">Belfast</option>
+                <option value="Drogheda">Drogheda</option>
+                <option value="Banbridge">Banbridge</option>
             </select>
         </div>
         <div class="filter-option">
             <label for="saving-filter">Saving:</label>
             <select id="saving-filter">
                 <option value="">All</option>
-                <option value="saving1">0</option>
-                <option value="saving2">15</option>
-                <option value="saving3">20</option>
-                <option value="saving3">25</option>
+                <option value="0">0</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+                <option value="25">25</option>
+                <option value="40">40</option>
+                <option value="50">50</option>
             </select>
         </div>
         <div class="filter-option">
             <label for="category-filter">Category:</label>
             <select id="category-filter">
                 <option value="">All</option>
-                <option value="category1">Eating out</option>
-                <option value="category2">Entertainment</option>
-                <option value="category3">Groceries</option>
+                <option value="Eating out">Eating out</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Groceries">Groceries</option>
+                <option value="Days Out">Days Out</option>
+                <option value="Indoor Products">Indoor Products</option>
+                <option value="Outdoor Products">Outdoor Products</option>
             </select>
         </div>
         <button class="filter-button" onclick="applyFilter()">Filter</button>
@@ -79,35 +85,36 @@
       
     <!-- js for filter options -->
     <script>
-        function filterImages() {
-            var cityFilter = document.getElementById('city-filter').value;
-            var savingFilter = document.getElementById('saving-filter').value;
-            var categoryFilter = document.getElementById('category-filter').value;
-
-            var imageItems = document.getElementsByClassName('all-d-img');
-
-            for (var i = 0; i < imageItems.length; i++) {
-                var imageItem = imageItems[i];
-                var city = imageItem.getAttribute('data-city');
-                var saving = imageItem.getAttribute('data-saving');
-                var category = imageItem.getAttribute('data-category');
-
-                if (
-                    (cityFilter === '' || cityFilter === city) &&
-                    (savingFilter === '' || savingFilter === saving) &&
-                    (categoryFilter === '' || categoryFilter === category)
-                ) {
-                    imageItem.style.display = 'block';
-                } else {
-                    imageItem.style.display = 'none';
-                }
-            }
-        }
-
         function applyFilter() {
-            filterImages();
-        }
+            const cityFilter = document.getElementById("city-filter").value;
+            const savingFilter = document.getElementById("saving-filter").value;
+            const categoryFilter = document.getElementById("category-filter").value;
 
+            // Send filter criteria to the server and get the filtered deals
+         fetch(`/filteredDeals?city=${cityFilter}&saving=${savingFilter}&category=${categoryFilter}`)
+            .then((response) => response.json())
+            .then((filteredDeals) => {
+                // Hide all deals first
+                const deals = document.getElementsByClassName("deal-container");
+                for (const deal of deals) {
+                    deal.style.display = "none";
+                }
+
+        // Show only the filtered deals
+        for (const deal of filteredDeals) {
+          const dealContainer = document.querySelector(`[data-deal-id="${deal.id}"]`);
+          if (dealContainer) {
+            dealContainer.style.display = "block";
+          }
+        }
+      });
+    }
+
+    // Call applyFilter() initially to show all deals
+    applyFilter();
+    </script>
+
+    <script>
         function likeDeal(dealId) {
             $.post('/like_deal', { dealId: dealId }, function (data) {
                 console.log('Deal liked!');
@@ -118,6 +125,8 @@
             });
         }
     </script>
+
+
       <!-- footer -->
     <%- include ('footer') %>
 </body>

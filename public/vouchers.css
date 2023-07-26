@@ -124,6 +124,7 @@ a .shop_link:link {
 
 .v-save-btn:hover {
   background-color: #d66;
+  cursor: pointer;
 }
 
 .v-log-save-btn {
@@ -140,6 +141,7 @@ a .shop_link:link {
 
 .v-log-save-btn:hover {
   background-color: #d66;
+  cursor: pointer;
 }
 
 .filter-txt {
