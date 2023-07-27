@@ -62,12 +62,13 @@ app.get("/login", async (req,res) => {
 });
 
 app.get("/contact", (req,res) => {
-  let loggedIn = req.session.loggedin;
-    res.render('contact', {loggedin});
+  const loggedIn = req.session.loggedin
+    res.render('contact', { loggedIn });
 });
 
 app.get("/privacy", (req,res) => {
-    res.render('privacy');
+  const loggedIn = req.session.loggedin
+    res.render('privacy', { loggedIn });
 });
 
 app.get('/logged', isAuthenticated, function(req, res) {
