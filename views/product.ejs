@@ -71,7 +71,7 @@
             <p>Voucher Code: <%= deal.voucher %></p>
             <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
             <% if (loggedIn) { %>
-                <button class="save-btn" action="/submit-deal" method="POST">SAVE DEAL</button>
+                <button class="save-btn" onclick="saveDeal('<%= deal.id %>')">SAVE DEAL</button>
                 <button class="like-btn" onclick="likeDeal('<%= deal.id %>')">
                     <i class="far fa-heart"></i>
                 </button>
@@ -128,7 +128,38 @@
     </script>
 
     <!-- js to save deal -->
-    
+    <script>
+        function saveDeal(dealId) {
+            const memberId = req.session.loggedin; 
+            // Prepare the data to send in the POST request body
+            const data = {
+                memberid: memberId,
+                dealid: dealId,
+            };
+            
+            fetch('/api/save-deal', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(result => {
+                // Handle the response if needed
+                console.log('Deal saved successfully!', result);
+            })
+            .catch(error => {
+                // Handle any errors that occurred during the request
+                console.error('Error saving deal:', error.message);
+            });
+        }
+    </script>
 
 
       <!-- footer -->
