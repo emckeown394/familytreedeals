@@ -431,6 +431,23 @@ app.post('/submit-voucher', (req, res) => {
       
 });
 
+app.post('/save-deal', (req, res) => {
+  // Save deal into the database
+        db.query(
+          `INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)`,
+          [memberid, dealid],
+          (err) => {
+            if (err) {
+              console.error(err);
+              res.send('An error occurred during saving deal.');
+            } else {
+              res.redirect('/product');
+            }
+          }
+        );
+      
+});
+
 
 
 // signup/login
