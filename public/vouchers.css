@@ -86,6 +86,9 @@
 }
 
 .v_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   padding: 2px 16px;
   background-color: #f1f1f1;
 }
