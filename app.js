@@ -79,7 +79,7 @@ app.get('/logged', isAuthenticated, function(req, res) {
       // User is not logged in, redirect to the login page
       res.redirect('/login');
     }
-  });
+});
   
 
 app.get("/logged_index", (req,res) => {
@@ -169,14 +169,6 @@ app.get("/tesco_vouchers", (req, res) => {
       res.status(500).send('Failed to load vouchers');
     }
   });
-});
-
-app.get("/post_deals", (req,res) => {
-  res.render('post_deals');
-});
-
-app.get("/post_vouchers", (req,res) => {
-  res.render('post_vouchers');
 });
 
 app.get("/product", (req, res) => {
@@ -393,42 +385,58 @@ app.get('/eatingout-deals', (req, res) => {
   });
 });
 
+app.get("/post_deals", (req,res) => {
+  // Check if the user is logged in and has a valid session
+  if (!req.session.loggedin) {
+    return res.redirect("/login");
+  } else{
+    res.render('post_deals');
+  }
+});
+
+app.get("/post_vouchers", (req,res) => {
+  // Check if the user is logged in and has a valid session
+  if (!req.session.loggedin) {
+    return res.redirect("/login");
+  } else{
+    res.render('post_vouchers');
+  }
+});
+
 app.post('/submit-deal', (req, res) => {
   const { deal, city, info, saving, url, voucher, company, category, image, rrp } = req.body;
-
-        // Insert deal into the database
-        db.query(
-          `INSERT INTO deals (text, city, info, saving, url, voucher, company, category, image, rrp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-          [deal, city, info, saving, url, voucher, company, category, image, rrp],
-          (err) => {
-            if (err) {
-              console.error(err);
-              res.send('An error occurred during posting deal.');
-            } else {
-              res.redirect('/post_deals');
-            }
-          }
-        );
-      
+  
+  // Insert deal into the database
+  db.query(
+    `INSERT INTO deals (text, city, info, saving, url, voucher, company, category, image, rrp) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+    [deal, city, info, saving, url, voucher, company, category, image, rrp],
+    (err) => {
+      if (err) {
+        console.error(err);
+        res.send('An error occurred during posting deal.');
+      } else {
+        res.redirect('/post_deals');
+      }
+    }
+  );
 });
 
 app.post('/submit-voucher', (req, res) => {
   const { voucher, company, saving, code, url, category, image } = req.body;
-
-        // Insert voucher into the database
-        db.query(
-          `INSERT INTO vouchers (text, company, saving, code, link, category, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
-          [voucher, company, saving, code, url, category, image],
-          (err) => {
-            if (err) {
-              console.error(err);
-              res.send('An error occurred during posting voucher.');
-            } else {
-              res.redirect('/post_vouchers');
-            }
-          }
-        );
-      
+  
+  // Insert voucher into the database
+  db.query(
+    `INSERT INTO vouchers (text, company, saving, code, link, category, image) VALUES (?, ?, ?, ?, ?, ?, ?)`,
+    [voucher, company, saving, code, url, category, image],
+    (err) => {
+      if (err) {
+        console.error(err);
+        res.send('An error occurred during posting voucher.');
+      } else {
+        res.redirect('/post_vouchers');
+      }
+    }
+  );
 });
 
 app.post('/save-deal', (req, res) => {
