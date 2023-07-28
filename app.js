@@ -486,6 +486,28 @@ app.get('/get_saved_deals', isAuthenticated, (req, res) => {
   });
 });
 
+app.get("/saved", (req, res) => {
+  // Check if the user is logged in and has a valid session
+  if (!req.session.loggedin) {
+    return res.redirect("/login");
+  }
+
+  // Fetch the user's saved deals from the database
+  const memberId = req.session.user_id;
+  const sql = "SELECT * FROM saved_deals WHERE memberid = ?";
+  db.query(sql, [memberId], (err, rows) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Failed to fetch saved deals");
+    }
+
+    const savedDeals = rows;
+
+    // Render the saved_deals.ejs template with the savedDeals data
+    res.render("saved", { savedDeals });
+  });
+});
+
 
 
 // signup/login
