@@ -130,14 +130,11 @@
     <!-- js to save deal -->
     <script>
         function saveDeal(dealId) {
-            const memberId = req.session.loggedin; 
-            // Prepare the data to send in the POST request body
             const data = {
-                memberid: memberId,
-                dealid: dealId,
+                dealId: dealId,
             };
             
-            fetch('/api/save-deal', {
+            fetch('/save-deal', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

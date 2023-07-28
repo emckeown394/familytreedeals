@@ -433,9 +433,22 @@ app.post('/submit-voucher', (req, res) => {
 
 app.post('/save-deal', (req, res) => {
   // Save deal into the database
+  const memberId = req.session.user_id;
+  const { dealId } = req.body;
+  
+  const query = 'SELECT * FROM deals WHERE id = ?';
+
+  db.query(query, [dealId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.send('Error saving deal');
+    } else {
+      if (results.length === 0) {
+        res.send('Deal not found in db');
+      } else {
         db.query(
           `INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)`,
-          [memberid, dealid],
+          [memberId, dealId],
           (err) => {
             if (err) {
               console.error(err);
@@ -445,7 +458,9 @@ app.post('/save-deal', (req, res) => {
             }
           }
         );
-      
+      }
+    }
+  })    
 });
 
 
@@ -502,6 +517,7 @@ app.post('/signup', (req, res) => {
               if (result) {
                 req.session.loggedin = true;
                 req.session.username = username;
+                req.session.user_id = rows[0].id;
                 res.redirect('/logged');
               } else {
                 res.send('<code>Incorrect Username and/or Password</code> <a href="/login" class="button">BACK</a>');
