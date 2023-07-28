@@ -33,8 +33,6 @@ p, a {
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   padding-bottom: 20px;
   min-height: 70vh;
 }
@@ -66,7 +64,7 @@ input[type="text"], input[type="password"] {
 }
 
 input[type="text"]:focus, input[type="password"]:focus {
-  color: #f1f1f1;
+  color: black;
   outline: none;
 }
 
