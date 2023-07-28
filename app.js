@@ -435,7 +435,7 @@ app.post('/save-deal', (req, res) => {
   // Save deal into the database
   const memberId = req.session.user_id;
   const { dealId } = req.body;
-  
+
   const query = 'SELECT * FROM deals WHERE id = ?';
 
   db.query(query, [dealId], (err, results) => {
@@ -461,6 +461,29 @@ app.post('/save-deal', (req, res) => {
       }
     }
   })    
+});
+
+// Get Saved Deals 
+app.get('/get_saved_deals', isAuthenticated, (req, res) => {
+  const memberId = req.session.user_id; 
+  
+  // Query to fetch saved deals associated with the logged-in user
+  const sql = `
+    SELECT deals.id, deals.text, deals.city, deals.info, deals.saving, deals.url, deals.voucher, deals.company, deals.member_id, deals.image, deals.rrp, deals.likes
+    FROM deals
+    INNER JOIN saved_deals ON deals.id = saved_deals.deal_id
+    WHERE saved_deals.user_id = ?;
+  `;
+  
+  db.query(sql, [memberId], (err, results) => {
+    if (err) {
+      console.error(err);
+      res.status(500).json({ message: 'Failed to fetch saved deals.' });
+    } else {
+      const savedDeals = results;
+      res.status(200).json(savedDeals);
+    }
+  });
 });
 
 
