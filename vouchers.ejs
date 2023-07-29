@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- css -->
+   <link rel="stylesheet" href="/public/styles.css">
+   <link rel="stylesheet" href="/public/vouchers.css">
+
+</head>
+<body>
+    <!-- navbar -->
+    <% if (loggedIn) { %>
+      <%- include ('navbar_logged') %>
+    <% } else { %>
+      <%- include ('navbar') %>
+    <% } %>
+
+   <h1>EXPLORE OUR RANGE OF VOUCHERS ADDED BY THE COMMUNITY</h1>
+
+  <% voucherData.forEach((voucher) => { %>
+   <div class="voucher" data-voucher-id="<%= voucher.id %>">
+     <div class="v_container">
+       <h3><%= voucher.company %></h3>
+     </div>
+     <img src="<%= voucher.image %>" alt="" style="width:100%;">
+     <div class="v_container" style="background-color:white">
+       <h2><p><%= voucher.saving %> % OFF</p></h2>
+       <br>
+       <p><%= voucher.text %></p>
+       <p>Check out <a href="<%= voucher.link %>" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link"><%= voucher.company %></a>.</p>
+     </div>
+     <div class="container">
+       <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
+     </div>
+     <div class="save-btn-container">
+      <% if (loggedIn) { %>
+         <button class="v-save-btn" onclick="saveVoucher('<%= voucher.id %>')">SAVE VOUCHER</button>
+       <% } else { %>
+         <a href="/login" class="v-log-save-btn">LOG IN TO SAVE VOUCHER</a>
+       <% } %>
+     </div>
+   </div>
+ <% }) %>
+
+
+ <!-- js to save voucher -->
+ <script>
+   function saveVoucher(voucherId) {
+       const data = {
+           voucherId: voucherId,
+       };
+       
+       fetch('/save-voucher', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(data),
+       })
+       .then(response => {
+           if (!response.ok) {
+               throw new Error('Network response was not ok');
+           }
+           return response.json();
+       })
+       .then(result => {
+           // Handle the response if needed
+           console.log('Voucher saved successfully!', result);
+       })
+       .catch(error => {
+           // Handle any errors that occurred during the request
+           console.error('Error saving voucher:', error.message);
+       });
+   }
+</script>
+ 
+<!-- footer -->
+<%- include ('footer') %>
+</body>
+</html>
