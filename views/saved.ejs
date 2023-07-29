@@ -3,18 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saved Deals and Vouchers</title>
+    <title>Saved Deals</title>
     <link rel="stylesheet" href="/public/styles.css">
     <link rel="stylesheet" href="/public/saved.css">
+    <link rel="stylesheet" href="/public/product.css">
 </head>
 <body class="saved_body">
     <!-- navbar -->
     <%- include ('navbar_logged') %>
 
-    <h1 class="saved_header">View all your saved Deals and Vouchers</h1>
-    <div id="saved_deals_container">
+    <h1 class="saved_header">View all your saved Deals</h1>
 
-    </div>
+    <% if (savedDeals.length === 0) { %>
+        <p class="no-deals">No saved deals found</p>
+    <% } else { %>
+        <div id="saved_deals_container">
+            <% savedDeals.forEach((deal) => { %>
+                <div class="deal-container">
+                    <div class="deal-image">
+                      <img src="<%= deal.image %>" alt="Product Image">
+                    </div>
+                    <div class="deal-info">
+                      <h2><%= deal.text %></h2>
+                      <p><%= deal.info %></p>
+                      <p>Price: £<%= deal.rrp %> <span class="saving">Save <%= deal.saving %>%</span></p>
+                      <p>Voucher Code: <%= deal.voucher %></p>
+                      <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
+                      <span class="like-count"> <%= deal.likes %> </span>
+                    </div>
+                </div> 
+            <% }) %>
+        </div>
+    <% } %>
 
     <script>
         // Client-Side: Fetch and Display Saved Deals
@@ -36,6 +56,27 @@
         }
 
     </script>
+
+<script>
+    // Client-Side: Fetch and Display Saved Vouchers
+    function fetchAndDisplaySavedVouchers() {
+        fetch('/get_saved_vouchers')
+        .then((response) => response.json())
+        .then((savedVouchers) => {
+            // Loop through savedVouchers and render them in the template
+            const savedVouchersContainer = document.getElementById('saved_vouchers_container');
+            savedVouchers.forEach((deal) => {
+                const voucherElement = document.createElement('div');
+                voucherElement.classList.add('voucher');
+                savedVouchersContainer.appendChild(voucherElement);
+            });
+        })
+        .catch((error) => {
+            console.error('Failed to fetch saved vouchers:', error);
+        });
+    }
+
+</script>
 
     <!-- footer -->
     <%- include ('footer') %>

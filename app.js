@@ -177,7 +177,7 @@ app.get("/product", (req, res) => {
     try {
       if (err) throw err;
       let rowdata = rows;
-      let loggedIn = req.session.loggedin;
+      let loggedIn = req.session.loggedin || false;
       res.render('product', { title: 'Product', rowdata, loggedIn });
     } catch (err) {
       console.error(err);
@@ -442,8 +442,8 @@ app.post('/submit-voucher', (req, res) => {
 app.post('/save-deal', (req, res) => {
   // Save deal into the database
   const memberId = req.session.user_id;
-  const { dealId } = req.body;
-  console.log('Request Payload', req.body);
+  const dealId = req.query.id;
+  console.log('Request Payload', req.query.id);
   db.query(
     `INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)`,
     [memberId, dealId],
@@ -537,7 +537,6 @@ app.get('/get_saved_vouchers', isAuthenticated, (req, res) => {
   });
 });
 
-// ...
 
 app.get("/saved", (req, res) => {
   // Check if the user is logged in and has a valid session
@@ -560,6 +559,25 @@ app.get("/saved", (req, res) => {
     // Render the saved_deals.ejs template with the savedDeals data
     res.render("saved", { savedDeals });
   });
+});
+
+app.get('/save', (req, res) => {
+  if (!req.session.loggedin) {
+    return res.redirect("/login");
+  } else {
+    const dealId = req.query.id;
+    const memberId = req.session.user_id;
+
+    const query = 'INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)';
+    db.query(query, [memberId, dealId], (err, result) => {
+      if (err) {
+        console.error('Error saving deal:', err);
+        res.send('<code>Failed to save deal</code> <a href="/product" class="button">BACK</a>');
+      } else {
+        res.redirect('/product');
+      }
+    });
+  }
 });
 
 

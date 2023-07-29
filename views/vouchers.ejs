@@ -45,6 +45,38 @@
      </div>
    </div>
  <% }) %>
+
+
+ <!-- js to save voucher -->
+ <script>
+   function saveVoucher(voucherId) {
+       const data = {
+           voucherId: voucherId,
+       };
+       
+       fetch('/save-voucher', {
+           method: 'POST',
+           headers: {
+               'Content-Type': 'application/json',
+           },
+           body: JSON.stringify(data),
+       })
+       .then(response => {
+           if (!response.ok) {
+               throw new Error('Network response was not ok');
+           }
+           return response.json();
+       })
+       .then(result => {
+           // Handle the response if needed
+           console.log('Voucher saved successfully!', result);
+       })
+       .catch(error => {
+           // Handle any errors that occurred during the request
+           console.error('Error saving voucher:', error.message);
+       });
+   }
+</script>
  
 <!-- footer -->
 <%- include ('footer') %>

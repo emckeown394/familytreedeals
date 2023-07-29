@@ -71,7 +71,7 @@
             <p>Voucher Code: <%= deal.voucher %></p>
             <a href="<%= deal.url %>" target="_blank" class="get-deal-btn">GET DEAL* </a>
             <% if (loggedIn) { %>
-                <button class="save-btn" onclick="saveDeal('<%= deal.id %>')">SAVE DEAL</button>
+                <a href="/save?id=<%= deal.id %>" class="save-btn">SAVE DEAL</a>
                 <button class="like-btn" onclick="likeDeal('<%= deal.id %>')">
                     <i class="far fa-heart"></i>
                 </button>
