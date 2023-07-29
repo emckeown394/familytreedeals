@@ -443,32 +443,20 @@ app.post('/save-deal', (req, res) => {
   // Save deal into the database
   const memberId = req.session.user_id;
   const { dealId } = req.body;
-
-  const query = 'SELECT * FROM deals WHERE id = ?';
-
-  db.query(query, [dealId], (err, results) => {
-    if (err) {
-      console.error(err);
-      res.send('Error saving deal');
-    } else {
-      if (results.length === 0) {
-        res.send('Deal not found in db');
+  console.log('Request Payload', req.body);
+  db.query(
+    `INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)`,
+    [memberId, dealId],
+    (err, result) => {
+      if (err) {
+        console.error(err);
+        res.send('An error occurred during saving deal.');
       } else {
-        db.query(
-          `INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)`,
-          [memberId, dealId],
-          (err) => {
-            if (err) {
-              console.error(err);
-              res.send('An error occurred during saving deal.');
-            } else {
-              res.redirect('/product');
-            }
-          }
-        );
+        console.log('Deal saved successfully');
+        res.redirect('/product');
       }
     }
-  })    
+    );
 });
 
 // Get Saved Deals 
@@ -526,7 +514,7 @@ app.post('/save-voucher', (req, res) => {
   })    
 });
 
-// Get Saved Vopuchers 
+// Get Saved Vouchers 
 app.get('/get_saved_vouchers', isAuthenticated, (req, res) => {
   const memberId = req.session.user_id; 
   
@@ -549,6 +537,8 @@ app.get('/get_saved_vouchers', isAuthenticated, (req, res) => {
   });
 });
 
+// ...
+
 app.get("/saved", (req, res) => {
   // Check if the user is logged in and has a valid session
   if (!req.session.loggedin) {
@@ -558,21 +548,19 @@ app.get("/saved", (req, res) => {
   // Fetch the user's saved deals from the database
   const memberId = req.session.user_id;
   const sql = "SELECT * FROM saved_deals WHERE memberid = ?";
-  const sql2 = "SELECT * FROM saved_vouchers WHERE memberid = ?";
-  db.query(sql, sql2, [memberId], (err, rows) => {
+  
+  db.query(sql, [memberId], (err, rows) => {
     if (err) {
       console.error(err);
-      return res.status(500).send("Failed to fetch saved deals and vouchers");
+      return res.status(500).send("Failed to fetch saved deals");
     }
 
     const savedDeals = rows;
-    const savedVouchers = rows;
 
-    // Render the saved_deals.ejs template with the savedDeals and savedVouchers data
-    res.render("saved", { savedDeals, savedVouchers });
+    // Render the saved_deals.ejs template with the savedDeals data
+    res.render("saved", { savedDeals });
   });
 });
-
 
 
 // signup/login
