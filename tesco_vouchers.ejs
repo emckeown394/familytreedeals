@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- css -->
+   <link rel="stylesheet" href="/public/styles.css">
+   <link rel="stylesheet" href="/public/vouchers.css">
+
+</head>
+<body>
+    <!-- navbar -->
+	<%- include ('navbar') %>
+
+  <h1>Tesco Vouchers</h1>
+   
+  <% voucherData.forEach((voucher) => { %>
+    <div class="voucher" data-voucher-id="<%= voucher.id %>">
+      <div class="v_container">
+        <h3><%= voucher.company %></h3>
+      </div>
+      <img src="<%= voucher.image %>" alt="" style="width:100%;">
+      <div class="v_container" style="background-color:white">
+        <h2><b><%= voucher.saving %> % OFF</b></h2>
+        <p><%= voucher.text %></p>
+        <p>Check out <a href="<%= voucher.link %>" style="color:dodgerblue" target="_blank" rel="noopener noreferrer" class="shop_link"><%= voucher.company %></a>.</p>
+      </div>
+      <div class="container">
+        <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
+      </div>
+    </div>
+  <% }) %>
+
+
+<!-- footer -->
+<%- include ('footer') %>
+</body>
+</html>
