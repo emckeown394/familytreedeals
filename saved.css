@@ -1,0 +1,41 @@
+.saved_body {
+    font-family: 'Kumbh Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  .saved_header {
+    color: black;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .no-deals {
+    color: black;
+    text-align: center;
+    padding: 16px;
+  }
+
+  .delete-deal-btn {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: rgb(244, 79, 79);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+  }
+  
+  .delete-deal-btn:hover {
+    background-color: red;
+    cursor: pointer;
+  }

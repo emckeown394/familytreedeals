@@ -443,11 +443,31 @@ app.post('/save-deal', (req, res) => {
   // Save deal into the database
   const memberId = req.session.user_id;
   const dealId = req.query.id;
-  console.log('Request Payload', req.query.id);
-  db.query(
-    `INSERT INTO saved_deals (memberid, dealid) VALUES (?, ?)`,
-    [memberId, dealId],
-    (err, result) => {
+  let text = req.body.text;
+  let info = req.body.info;
+  let saving = req.body.saving;
+  let url = req.body.url;
+  let voucher = req.body.voucher;
+  let image = req.body.image;
+  let rrp = req.body.rrp;
+  let likes = req.body.likes;
+  
+  let sql =
+    "INSERT INTO saved_deals (memberid, dealid, text, info, saving, url, voucher, image, rrp, likes) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+  let values = [
+    memberId,
+    dealId,
+    text,
+    info,
+    saving,
+    url,
+    voucher,
+    image,
+    rrp,
+    likes,
+    
+  ];
+    connection.query(sql, values, (err, result) => {
       if (err) {
         console.error(err);
         res.send('An error occurred during saving deal.');
@@ -520,6 +540,24 @@ app.get('/save', (req, res) => {
         res.send('<code>Failed to save deal</code> <a href="/product" class="button">BACK</a>');
       } else {
         res.redirect('/product');
+      }
+    });
+  }
+});
+
+app.get('/delete', (req, res) => {
+  if (!req.session.loggedin) {
+    return res.redirect("/login");
+  } else {
+    const savedDealId = req.query.id;
+
+    const query = 'DELETE FROM `saved_deals` WHERE `dealid` = ?';
+    db.query(query, [savedDealId], (err, result) => {
+      if (err) {
+        console.error('Error deleting deal:', err);
+        res.send('<code>Failed to delete deal</code> <a href="/saved" class="button">BACK</a>');
+      } else {
+        res.redirect('/saved');
       }
     });
   }
