@@ -36,47 +36,9 @@
      <div class="container">
        <p class="code">Use Promo Code: <span class="promo"><%= voucher.code %></span></p>
      </div>
-     <div class="save-btn-container">
-      <% if (loggedIn) { %>
-         <button class="v-save-btn" onclick="saveVoucher('<%= voucher.id %>')">SAVE VOUCHER</button>
-       <% } else { %>
-         <a href="/login" class="v-log-save-btn">LOG IN TO SAVE VOUCHER</a>
-       <% } %>
-     </div>
    </div>
  <% }) %>
 
-
- <!-- js to save voucher -->
- <script>
-   function saveVoucher(voucherId) {
-       const data = {
-           voucherId: voucherId,
-       };
-       
-       fetch('/save-voucher', {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/json',
-           },
-           body: JSON.stringify(data),
-       })
-       .then(response => {
-           if (!response.ok) {
-               throw new Error('Network response was not ok');
-           }
-           return response.json();
-       })
-       .then(result => {
-           // Handle the response if needed
-           console.log('Voucher saved successfully!', result);
-       })
-       .catch(error => {
-           // Handle any errors that occurred during the request
-           console.error('Error saving voucher:', error.message);
-       });
-   }
-</script>
  
 <!-- footer -->
 <%- include ('footer') %>

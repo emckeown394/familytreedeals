@@ -482,61 +482,6 @@ app.get('/get_saved_deals', isAuthenticated, (req, res) => {
   });
 });
 
-app.post('/save-voucher', (req, res) => {
-  // Save voucher into the database
-  const memberId = req.session.user_id;
-  const { voucherId } = req.body;
-
-  const query = 'SELECT * FROM vouchers WHERE id = ?';
-
-  db.query(query, [voucherId], (err, results) => {
-    if (err) {
-      console.error(err);
-      res.send('Error saving voucher');
-    } else {
-      if (results.length === 0) {
-        res.send('Voucher not found in db');
-      } else {
-        db.query(
-          `INSERT INTO saved_vouchers (memberid, voucherid) VALUES (?, ?)`,
-          [memberId, voucherId],
-          (err) => {
-            if (err) {
-              console.error(err);
-              res.send('An error occurred during saving voucher.');
-            } else {
-              res.redirect('/vouchers');
-            }
-          }
-        );
-      }
-    }
-  })    
-});
-
-// Get Saved Vouchers 
-app.get('/get_saved_vouchers', isAuthenticated, (req, res) => {
-  const memberId = req.session.user_id; 
-  
-  // Query to fetch saved vouchers associated with the logged-in user
-  const sql = `
-    SELECT vouchers.id, vouchers.text, vouchers.company, vouchers.saving, vouchers.code, vouchers.link, vouchers.category, vouchers.image
-    FROM vouchers
-    INNER JOIN saved_vouchers ON vouchers.id = saved_vouchers.voucher_id
-    WHERE saved_vouchers.user_id = ?;
-  `;
-  
-  db.query(sql, [memberId], (err, results) => {
-    if (err) {
-      console.error(err);
-      res.status(500).json({ message: 'Failed to fetch saved vouchers.' });
-    } else {
-      const savedVouchers = results;
-      res.status(200).json(savedVouchers);
-    }
-  });
-});
-
 
 app.get("/saved", (req, res) => {
   // Check if the user is logged in and has a valid session
@@ -578,6 +523,68 @@ app.get('/save', (req, res) => {
       }
     });
   }
+});
+
+app.post('/like-deal', isAuthenticated, (req, res) => {
+  const memberId = req.session.user_id;
+  const dealId = req.body.dealId;
+
+  console.log(dealId);
+
+  // Check if the user has already liked the deal
+  const sqlCheckLiked = "SELECT COUNT(*) AS count FROM deals WHERE id = ? AND member_id = ?";
+  db.query(sqlCheckLiked, [dealId, memberId], (err, result) => {
+      if (err) {
+          console.error(err);
+          return res.status(500).json({ error: 'Failed to check if liked.' });
+      }
+
+      const isLiked = result[0].count > 0;
+
+      if (isLiked) {
+          // User has already liked the deal, so remove the like
+          const sqlRemoveLike = "UPDATE deals SET likes = likes - 1 WHERE id = ? AND member_id = ?";
+          db.query(sqlRemoveLike, [dealId, memberId], (err, result) => {
+              if (err) {
+                  console.error(err);
+                  return res.status(500).json({ error: 'Failed to remove like.' });
+              }
+
+              // Get the updated likes count for the deal
+              const sqlGetLikesCount = "SELECT likes FROM deals WHERE id = ?";
+              db.query(sqlGetLikesCount, [dealId], (err, result) => {
+                  if (err) {
+                      console.error(err);
+                      return res.status(500).json({ error: 'Failed to get likes count.' });
+                  }
+
+                  const likesCount = result[0].likes;
+                  res.json({ likes: likesCount, isLiked: false }); // Return the updated likes count and indicate it is unliked
+              });
+          });
+      } else {
+          // User has not liked the deal, so add a like
+          const sqlAddLike = "UPDATE deals SET likes = likes + 1 WHERE id = ? AND member_id = ?";
+          db.query(sqlAddLike, [dealId, memberId], (err, result) => {
+              if (err) {
+                  console.error(err);
+                  return res.status(500).json({ error: 'Failed to add like.' });
+              }
+
+              // Get the updated likes count for the deal
+              const sqlGetLikesCount = "SELECT likes FROM deals WHERE id = ?";
+              db.query(sqlGetLikesCount, [dealId], (err, result) => {
+                  if (err) {
+                      console.error(err);
+                      return res.status(500).json({ error: 'Failed to get likes count.' });
+                  }
+
+                  const likesCount = result[0].likes;
+                  res.json({ likes: likesCount, isLiked: true }); // Return the updated likes count and indicate it is liked
+              });
+          });
+      }
+  });
 });
 
 

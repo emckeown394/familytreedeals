@@ -37,7 +37,7 @@
     <% } %>
 
     <script>
-        // Client-Side: Fetch and Display Saved Deals
+        // Fetch and Display Saved Deals
         function fetchAndDisplaySavedDeals() {
             fetch('/get_saved_deals')
             .then((response) => response.json())
@@ -56,27 +56,6 @@
         }
 
     </script>
-
-<script>
-    // Client-Side: Fetch and Display Saved Vouchers
-    function fetchAndDisplaySavedVouchers() {
-        fetch('/get_saved_vouchers')
-        .then((response) => response.json())
-        .then((savedVouchers) => {
-            // Loop through savedVouchers and render them in the template
-            const savedVouchersContainer = document.getElementById('saved_vouchers_container');
-            savedVouchers.forEach((deal) => {
-                const voucherElement = document.createElement('div');
-                voucherElement.classList.add('voucher');
-                savedVouchersContainer.appendChild(voucherElement);
-            });
-        })
-        .catch((error) => {
-            console.error('Failed to fetch saved vouchers:', error);
-        });
-    }
-
-</script>
 
     <!-- footer -->
     <%- include ('footer') %>

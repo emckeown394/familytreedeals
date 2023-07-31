@@ -32,7 +32,7 @@
             </select>
         </div>
         <div class="filter-option">
-            <label for="saving-filter">Saving:</label>
+            <label for="saving-filter">Discount (%):</label>
             <select id="saving-filter">
                 <option value="">All</option>
                 <option value="0">0</option>
@@ -117,14 +117,32 @@
     <!-- js for like deal -->
     <script>
         function likeDeal(dealId) {
-            $.post('/like_deal', { dealId: dealId }, function (data) {
-                console.log('Deal liked!');
-                // Update the like count on the front-end
-                const likeCountElement = document.querySelector(`[data-deal-id="${dealId}"] .like-count`);
-                const currentLikes = parseInt(likeCountElement.textContent);
-                likeCountElement.textContent = currentLikes + 1;
-            });
+    fetch('/like-deal', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ dealId }),
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        // Update the like button's appearance based on the response
+        const likeButton = document.querySelector(`[onclick="likeDeal('${dealId}')"]`);
+        const likeCountElement = likeButton.nextElementSibling;
+
+        if (data.isLiked) {
+            likeButton.classList.add('liked'); // Apply a CSS class for a red/liked appearance
+        } else {
+            likeButton.classList.remove('liked'); // Remove the CSS class to revert to the default appearance
         }
+
+        // Update the like count element with the new likes count
+        likeCountElement.textContent = data.likes;
+    })
+    .catch((error) => {
+        console.error('Error liking deal:', error.message);
+    });
+}
     </script>
 
     <!-- js to save deal -->

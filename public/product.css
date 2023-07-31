@@ -130,7 +130,7 @@ h1 {
   }
   
   .like-btn.liked {
-    color: #e74c3c;
+    color: red;
   }
 
   .like-count {
@@ -152,6 +152,7 @@ h1 {
 .filter-option {
     margin: 0 10px;
     color: black;
+    font-size: 14px;
 }
 
 .filter-button {
